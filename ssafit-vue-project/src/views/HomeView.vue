@@ -1,0 +1,17 @@
+<template>
+    <div>
+        <h2>당신을 위한 맞춤형 운동, 건강관리 서비스를 제공합니다.</h2>
+    </div>
+  </template>
+  
+  <script setup>
+  
+  
+  </script>
+  
+  <style scoped>
+  h2{
+    color: pink;
+    font-family: sans-serif;
+  }
+  </style>
