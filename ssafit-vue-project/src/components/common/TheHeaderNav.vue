@@ -22,23 +22,33 @@
 
 <script setup>
 
-import {  ref,watch } from 'vue';
+import {  ref,watchEffect } from 'vue';
+import { decodeJWT } from '../../util/jwtDecoder'; 
 import{useRouter} from 'vue-router'
-const router = useRouter()
+
+
+const loginUsernickname = ref(null);
+
+const router = useRouter()   
+
+watchEffect(() => {
+  console.log('watchEffect 실행됨');
+  const token = sessionStorage.getItem('access-token');
+  console.log('세션 스토리지에서 가져온 토큰:', token);
+  if (token) {
+    const decoded = decodeJWT(token);
+    console.log('디코드된 값:', decoded);
+    loginUsernickname.value = decoded ? decoded.nickname : null;
+  } else {
+    loginUsernickname.value = null;
+  }
+});
+
 const logout = () => {  
   sessionStorage.removeItem('loginUser'); 
   alert("로그아웃"); 
   router.push({name:'home'});
 };
-const loginUsernickname = ref(JSON.parse(sessionStorage.getItem('loginUser')));
-
-watch(
-  () => sessionStorage.getItem('loginUser'),
-  (newValue) => {
-    console.log('New value in watch:', newValue);
-    loginUsernickname.value = JSON.parse(newValue);
-  }
-);
 </script>
 
 <style scoped>

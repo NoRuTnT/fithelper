@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', () => {
     axios({
       url: REST_USER_API+'/signup',
       method: 'POST',
-      headers: {
+      headers: { 
         "Content-Type": "application/json"
       },
       data: user
