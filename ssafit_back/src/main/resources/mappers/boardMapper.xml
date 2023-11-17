@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.BoardDao">
+	
+	<select id="selectOne" resultType="Board" parameterType="int">
+		SELECT *
+		FROM Board
+		WHERE boardId = #{boardId};
+	</select>
+
+	<insert id="insertBoard" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
+		INSERT INTO Board (boardId, userId, title, content)
+		VALUES (#{boardId}, #{userId}, #{title}, #{content})
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM Board
+		WHERE boardId = #{boardId}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE Board
+		SET viewCnt = viewCnt+1
+		WHERE boardId = #{boardId}
+	</update>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE Board
+		SET title = #{title}, content = #{content}, regDate = now()
+		WHERE boardId = #{boardId}
+	</update>
+	
+	<select id="search" resultType="Board" parameterType="SearchCondition">
+		select boardId, User.userId, Board.title, content, name, Board.viewCnt, date_format(regDate, '%Y-%m-%d') as regDate
+		FROM Board, User
+		<if test="key != 'none'">
+			WHERE  Board.userId = User.userId and Board.${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="key == 'none'">
+			WHERE  Board.userId = User.userId
+		</if>		
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+	
+	
+	<update id="updateLikeCntUp" parameterType="int">
+		UPDATE Board
+		SET viewCnt = viewCnt+1
+		WHERE boardId = #{boardId}
+	</update>
+	
+	
+	<update id="updateLikeCntDown" parameterType="int">
+		UPDATE Board
+		SET viewCnt = viewCnt-1
+		WHERE boardId = #{boardId}
+	</update>
+
+</mapper>
