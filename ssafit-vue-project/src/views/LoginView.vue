@@ -2,8 +2,8 @@
     <div class="login">
         <div class="login-box">
             <h2>SSAFIT</h2>
-                <input type="text" placeholder="이메일" v-model.trim="user.email"><br>
-                <input type="password" placeholder="비밀번호" v-model.trim="user.password">
+                <input type="text" placeholder="아이디" v-model="user.id"><br>
+                <input type="password" placeholder="비밀번호" v-model="user.password">
                 <button @click="loginUser">로그인</button>
         <div>
         <a href="#">비밀번호 찾기</a> | 
@@ -21,7 +21,7 @@ import { useUserStore } from "@/stores/user";
 
 const store = useUserStore();
 const user = ref({    
-    email: '',
+    id: '',
     password: ''
     
 })

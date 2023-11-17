@@ -33,14 +33,14 @@ export const useUserStore = defineStore('user', () => {
     axios({
       url: REST_USER_API+'/login',
       method: 'POST',
-      headers: {        
+      headers: {
         "Content-Type": "application/json"
       },
       data: user
     }).then((response) => {
       if(response.data){
         alert("로그인 성공!");
-        sessionStorage.setItem('access-token', response.data['access-token']);
+        sessionStorage.setItem('loginUser', JSON.stringify(response.data));
         router.push({ name: 'home' });        
       }else{
         alert("로그인 실패")

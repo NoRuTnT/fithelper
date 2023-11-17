@@ -5,10 +5,9 @@
                 <span>SSAFIT</span>
                 <!-- board 관련 link를 추후에 동적 바인딩으로 (:to) 바꿔줘야 됨-->
                 <RouterLink to="/">Home</RouterLink> |
-                <RouterLink to="/kakao">헬스장찾기</RouterLink> |
                 <RouterLink to="/board">자유게시판</RouterLink> |
                 <RouterLink to="/youtube">영상게시판</RouterLink> | 
-                <!-- <RouterLink to="{name: 'boardCreate'}">BoardCreate</RouterLink> -->
+                <RouterLink to="/kakao">지도확인</RouterLink>
                 <span v-if="!loginUsernickname">
                     <RouterLink to="/login">SSAFIT 로그인</RouterLink> 
                 </span>
@@ -25,16 +24,16 @@
 
 import {  ref,watch } from 'vue';
 import{useRouter} from 'vue-router'
-const router = useRouter()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+const router = useRouter()
 const logout = () => {  
-  sessionStorage.removeItem('access-token'); 
+  sessionStorage.removeItem('loginUser'); 
   alert("로그아웃"); 
   router.push({name:'home'});
 };
-const loginUsernickname = ref(JSON.parse(sessionStorage.getItem('access-token')));
+const loginUsernickname = ref(JSON.parse(sessionStorage.getItem('loginUser')));
 
 watch(
-  () => sessionStorage.getItem('access-token'),
+  () => sessionStorage.getItem('loginUser'),
   (newValue) => {
     console.log('New value in watch:', newValue);
     loginUsernickname.value = JSON.parse(newValue);

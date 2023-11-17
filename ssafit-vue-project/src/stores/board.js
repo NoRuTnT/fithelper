@@ -8,11 +8,7 @@ const REST_BOARD_API = `http://localhost:8080/api/board`
 export const useBoardStore = defineStore('board', () => {
   const boardList = ref([])
   const getBoardList = function () {
-    axios.get(REST_BOARD_API,{
-      headers: {
-        'access-token' : sessionStorage.getItem('access-token')
-      }
-    })
+    axios.get(REST_BOARD_API)
       .then((response) => {
       boardList.value = response.data
       })

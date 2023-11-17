@@ -4,8 +4,8 @@ import HomeView from '@/views/HomeView.vue'
 import BoardView from '@/views/BoardView.vue'
 import YoutubeView from '@/views/YoutubeView.vue'
 import LoginView from '@/views/LoginView.vue'
-import KakaoView from "@/views/KakaoView.vue";
 import RegistUserView from '@/views/RegistUserView.vue'
+import KakaoView from '@/views/KakaoView.vue'
 
 import BoardList from '@/components/board/BoardList.vue'
 import BoardCreate from '@/components/board/BoardCreate.vue'
@@ -15,6 +15,8 @@ import BoardUpdate from '@/components/board/BoardUpdate.vue'
 import SelectUserType from '@/components/User/SelectUserType.vue'
 import RegistUser from '@/components/User/RegistUser.vue'
 import RegistTrainer from '@/components/User/RegistTrainer.vue'
+
+import KakaoMap from '@/components/kakao/KakaoMap.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,11 +64,6 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: "/kakao",
-      name: "kakao",
-      component: KakaoView,
-    },
-    {
       path: '/registUser',
       name: 'registUser',
       component: RegistUserView,
@@ -87,6 +84,11 @@ const router = createRouter({
           component: RegistTrainer
         },
       ]
+    },
+    {
+      path: "/kakao",
+      name: "kakao",
+      component: KakaoView,
     },
   ]
 })
