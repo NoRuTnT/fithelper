@@ -11,8 +11,8 @@
 	</select>
 
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
-		insert into User (id, levelId, name,password, nickname, birth, email, phonenum,address,cash,sex)
-		values (#{id},#{levelId},#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
+		insert into User (levelId, name,password, nickname, birth, email, phonenum,address,cash,sex)
+		values (#{levelId},#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
 	</insert>
 	
 	<delete id="deleteUser" parameterType="int">
@@ -22,20 +22,15 @@
 	
 	<update id="updateUser" parameterType="User">
 		UPDATE User
-		SET userId = #{userId}, id = #{id}, password = #{password}, nickname = #{nickname}, birth = #{nickname}, email = #{email}, phonenum = #{phonenum}, address = #{address}
+		SET userId = #{userId}, password = #{password}, nickname = #{nickname}, birth = #{nickname}, email = #{email}, phonenum = #{phonenum}, address = #{address}
 		WHERE userId = #{userId}
 	</update>
 	
-	<select id="selectOne" parameterType="String" resultType="User">
-		SELECT *
-		FROM User
-		WHERE id = #{id}
-	</select>
-	<!-- 팔로우 기능과 관련된 사용자를 선택하는 SQL 쿼리문 -->
-	<select id="selectAllFollowing" parameterType="int" resultType="User">
-		
-	</select>
-	<select id="selectAllFollower" parameterType="int" resultType="User">
 	
+	
+	<select id="findByEmail" parameterType="String" resultType="User" >
+		select * 
+		from User
+		where email = #{email}
 	</select>
 </mapper>

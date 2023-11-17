@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
-@Api(tags="게시판 컨트롤러")
+@Api(tags="좋아요 컨트롤러")
 @CrossOrigin("*")
 public class BoardLikeRestController {
 
