@@ -16,6 +16,13 @@
       <hr>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
+
+
+
+
+      
+      
+
     </div>
     
   </div>
@@ -68,8 +75,6 @@ onMounted(() => {
     initMap();
   } else {
     const script = document.createElement('script'); // autoload=false 스크립트를 동적으로 로드하기 위해서 사용
-    // script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
-    //   }`;
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${import.meta.env.VITE_KAKAO_API_KEY
       }&libraries=services`; 
     script.addEventListener('load', () => {

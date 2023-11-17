@@ -15,6 +15,7 @@ public class User {
 	private String sex;	// 회원 성별 (1:남성 /2:여성)
 	// level 테이블에만 존재하는 속성
 	private String levelName; // 회원의 등급에 대한 설명
+
 	private Role role; //권한나누기
 	public User() {
 	}
@@ -37,14 +38,10 @@ public class User {
 		this.role = role;
 	}
 
-	
-	
-
-	
-
 	public String getUserId() {
 		return userId;
 	}
+
 
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -137,6 +134,7 @@ public class User {
 	public void setLevelName(String levelName) {
 		this.levelName = levelName;
 	}
+
 
 	public Role getRole() {
 		return role;

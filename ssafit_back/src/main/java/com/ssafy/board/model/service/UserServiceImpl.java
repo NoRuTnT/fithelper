@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
@@ -36,15 +37,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
-	 	
 	
 	@Override
 	public List<User> getUserList() {
 		return userDao.selectAll();
 	}
-	
-	
-	
+
 	@Override
 	public ResponseEntity<UserDTO> login(@RequestBody Map<String, String> body) {
 	    String email = body.get("email");
@@ -101,7 +99,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modifyUser(User user) {
 		userDao.updateUser(user);
-		
+	}
+
+
+	@Override
+	public List<User> getFollowingList(int userId) {
+		return userDao.selectAllFollowing(userId);
+	}
+
+
+	@Override
+	public List<User> getFollowerList(int userId) {
+		return userDao.selectAllFollower(userId);
+	}
+
+
+	
+
+}
 	} 
 	
 	@Override
@@ -150,6 +165,3 @@ public class UserServiceImpl implements UserService {
 	
 
 }
-
-
-

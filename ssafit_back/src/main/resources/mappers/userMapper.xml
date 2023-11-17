@@ -32,9 +32,5 @@
 		select * 
 		from User
 		where email = #{email}
-		
 	</select>
-	
-	
-	
 </mapper>

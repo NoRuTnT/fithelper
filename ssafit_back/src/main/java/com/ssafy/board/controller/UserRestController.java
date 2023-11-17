@@ -37,7 +37,6 @@ public class UserRestController {
 	private static final String SUCCESS="success";
 	private static final String FAIL="fail";
 	
-	
 	@Autowired
 	private UserService userService;
 	
@@ -115,14 +114,22 @@ public class UserRestController {
 	}
 	
 	
+	@GetMapping("getFollowingList/{id}")
+	public ResponseEntity<?> getFollowingList(@PathVariable int userId) {
+		List<User> list = userService.getFollowingList(userId);
+		if(list==null || list.size()==0) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("getFollowerList/{id}")
+	public ResponseEntity<?> getFollowerList(@PathVariable int userId) {
+		List<User> list = userService.getFollowerList(userId);
+		if(list==null || list.size()==0) {
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+	}
 	
 }
