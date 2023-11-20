@@ -25,7 +25,7 @@ import com.ssafy.board.model.dto.Comment;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.UserDTO;
 import com.ssafy.board.model.service.UserService;
-import com.ssafy.board.util.JwtUtil;
+import com.ssafy.board.security.JwtTokenUtil;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
@@ -42,7 +42,7 @@ public class UserRestController {
 	private UserService userService;
 	
 	@Autowired
-	private JwtUtil jwtUtil; 
+	private JwtTokenUtil jwtUtil; 
 	
 	@GetMapping("users")
 	public List<User> userList(Model model) {
@@ -96,8 +96,10 @@ public class UserRestController {
 	    ResponseEntity<UserDTO> response = userService.login(credentials); // 수정된 메소드 호출
 
 	    if (response.getStatusCode() == HttpStatus.OK) {
-	        UserDTO loginUser = response.getBody();
-	        String token = jwtUtil.createToken("email", loginUser.getEmail()); // JWT 토큰 생성
+	    	UserDTO loginUser = response.getBody();
+	        // UserServiceImpl에서 생성된 토큰을 사용
+	        String token = loginUser.getToken(); 
+	        System.out.println("Sending JWT Token to Client: " + token);
 	        result.put("access-token", token);
 	        result.put("message", SUCCESS);
 	        return new ResponseEntity<>(result, HttpStatus.OK);
