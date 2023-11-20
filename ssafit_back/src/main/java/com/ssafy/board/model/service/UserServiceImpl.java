@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.board.model.dao.UserDao;
-import com.ssafy.board.model.dto.Role;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.UserDTO;
 import com.ssafy.board.security.JwtTokenUtil;

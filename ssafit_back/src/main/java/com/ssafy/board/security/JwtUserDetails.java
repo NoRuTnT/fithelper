@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.ssafy.board.model.dto.Role;
 import com.ssafy.board.model.dto.User;
 
 import java.util.ArrayList;
@@ -24,10 +23,10 @@ public class JwtUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Role role = user.getRole();
+        String role = user.getRole();
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 
