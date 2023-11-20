@@ -20,19 +20,4 @@
 		WHERE commentId = #{commentId}
 	</delete>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
 </mapper>

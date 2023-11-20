@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.ChatroomDao">
+	<!-- 채팅방 생성, 일반유저와 트레이너유저 모두 가능 -->
+	<insert id="create" parameterType="Chatroom" keyProperty="chatmsgId" useGeneratedKeys="true">
+		INSERT INTO chatroom (trainerId, userId, message, read_or_not) VALUES
+		(#{trainerId}, #{userId}, #{message}, #{read_or_not})
+	</insert>
+	<!-- 일반 사용자가 전체 채팅 list 열람 -->
+	<select id="userSelectAll" parameterType="int" resultType="Chatroom">
+		SELECT * FROM chatroom
+		WHERE userId = #{userId}
+	</select>
+	<!-- 트레이너 사용자가 전체 채팅 list 열람 -->
+	<select id="trainerSelectAll" parameterType="int" resultType="Chatroom">
+		SELECT * FROM chatroom
+		WHERE trainerId = #{trainerId}
+	</select>
+	<!-- 선택한 채팅 내용 한 개 열람 -->
+	<select id="selectOne" parameterType="int" resultType="Chatroom">
+		SELECT * FROM chatroom
+		WHERE chatmsgId = #{chatmsgId}
+	</select>
+	<!-- 작성글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM chatroom
+		WHERE chatmsgId = #{chatmsgId}
+	</delete>
+	<!-- detail로 읽은 글을 읽음 표시한다. -->
+	<update id="checkReadMark" parameterType="int">
+		UPDATE chatroom
+		SET read_or_not = 1
+		WHERE chatmsgId = #{chatmsgId}
+	</update>
+</mapper>

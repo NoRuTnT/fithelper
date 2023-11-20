@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf()
                 .disable()
             .authorizeRequests()
-            	.antMatchers("/api-user/login","/api-user/signup").permitAll()
+            	.antMatchers("/api-user/login","/api-user/signup" /*, "/api/removeChatroom/**" */).permitAll()
                 .antMatchers("/user/{id}", "/user/save").hasAnyAuthority("Member", "Leader", "Admin","CEO")
                 .anyRequest()
                     .authenticated()

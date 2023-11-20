@@ -64,9 +64,15 @@ public class UserServiceImpl implements UserService {
 	    // userDetailsService를 사용하여 UserDetails 객체를 얻습니다.
 	    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 	   
-	    UserDTO userDTO = new UserDTO();
 	    JwtUserDetails jwtUserDetails = (JwtUserDetails) userDetails; // 캐스팅
-	    String token = jwtTokenUtil.generateToken(jwtUserDetails);
+	    
+	    System.out.println("JwtUserDetails - Email: " + jwtUserDetails.getUsername());
+	    System.out.println("JwtUserDetails - Nickname: " + jwtUserDetails.getNickname());
+	    
+	    
+	    UserDTO userDTO = new UserDTO();
+	    
+	    String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
 	    userDTO.setToken(token); // 토큰 설정
 
 	    return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -112,12 +118,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> getFollowerList(int userId) {
 		return userDao.selectAllFollower(userId);
 	}
-
-
-	
-
-}
-	} 
 	
 	@Override
 	public UserDTO save(User user, MultipartFile multipartFile) throws IOException {		  

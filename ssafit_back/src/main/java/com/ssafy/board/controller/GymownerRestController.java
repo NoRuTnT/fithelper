@@ -18,64 +18,63 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.board.model.dto.Trainer;
-import com.ssafy.board.model.service.TrainerService;
+import com.ssafy.board.model.dto.Gymowner;
+import com.ssafy.board.model.service.GymownerService;
 
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("/api-trainer")
-@Api(tags="트레이너 컨트롤러")
-public class TrainerRestController {
+@RequestMapping("/api-gymowner")
+@Api(tags="gymowner 컨트롤러")
+public class GymownerRestController {
 	@Autowired
-	private TrainerService trainerService;
+	private GymownerService gymownerService;
 	
-	@GetMapping("trainers")
-	public List<Trainer> trainerList(Model model){
-		return trainerService.getTrainerList();
+	@GetMapping("gymowners")
+	public List<Gymowner> gymownerList(Model model){
+		return gymownerService.getGymownerList();
 	}
 	
 	@PostMapping("signup")
-	public ResponseEntity<Trainer> signup(@RequestBody Trainer trainer) {
-	    trainerService.signup(trainer);
-	    trainer.setPassword(null); // 민감한 정보 숨기기
-	    return new ResponseEntity<>(trainer, HttpStatus.CREATED);
+	public ResponseEntity<Gymowner> signup(@RequestBody Gymowner gymowner) {
+		gymownerService.signup(gymowner);
+		gymowner.setPassword(null); // 민감한 정보 숨기기
+	    return new ResponseEntity<>(gymowner, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/trainer/check_email")
+	@PostMapping("/gymowner/check_email")
     public String checkDuplicateEmail(@Param("id") Integer id, @Param("email") String email){
-        return trainerService.isEmailUnique(id, email)? "OK" : "Duplicated";
+        return gymownerService.isEmailUnique(id, email)? "OK" : "Duplicated";
     }
 	
 	@DeleteMapping("delete/{id}")
-	public ResponseEntity<Void> delete(@PathVariable int trainerId){
-		trainerService.removeTrainer(trainerId);
+	public ResponseEntity<Void> delete(@PathVariable int gymownerId){
+		gymownerService.removeGymowner(gymownerId);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PutMapping("update") 
-	public ResponseEntity<Void> update(@RequestBody Trainer trainer){
-		trainerService.modifyTrainer(trainer);
+	public ResponseEntity<Void> update(@RequestBody Gymowner gymowner){
+		gymownerService.modifyGymowner(gymowner);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	
 	@PostMapping("login")
-	public ResponseEntity<?> login(@RequestBody Trainer trainer, HttpSession session) {
-		Trainer tmp = trainerService.login(trainer);
+	public ResponseEntity<?> login(@RequestBody Gymowner gymowner, HttpSession session) {
+		Gymowner tmp = gymownerService.login(gymowner);
 		if(tmp == null)
 			return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);  //로그인 페이지로 다시 튕기게 만듬
 		
-		session.setAttribute("loginTrainer", tmp.getNickname());
+		session.setAttribute("loginGymowner", tmp.getNickname());
 		return new ResponseEntity<String>(tmp.getNickname(),HttpStatus.OK);
 	}
 	
 	@GetMapping("logout")
 	public ResponseEntity<Void> logout(HttpSession session) {
 		session.invalidate();
-		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }
