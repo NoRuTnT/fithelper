@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.userReserve.model.dao.UserReserveDao">
+	
+	<select id="selectOne" resultType="UserReserve" parameterType="int">
+		SELECT *
+		FROM UserReserve
+		WHERE userReserveId = #{userReserveId};
+	</select>
+
+	<insert id="insertUserReserve" parameterType="UserReserve" keyProperty="userReserveId" useGeneratedKeys="true">
+		INSERT INTO UserReserve (userReserveId, userId, gymId, meetTime)
+		VALUES (#{userReserveId}, #{userId}, #{gymId}, #{meetTime})
+	</insert>
+	
+	<delete id="deleteUserReserve" parameterType="int">
+		DELETE FROM UserReserve
+		WHERE userReserveId = #{userReserveId}
+	</delete>
+	
+	
+	<select id="userselectAll" resultType="UserReserve">
+		select *
+		from UserReserve
+		where userId= #{userId}	
+	</select>
+	
+	<select id="gymselectAll" resultType="UserReserve">
+		select *
+		from UserReserve
+		where gymId= #{gymId}	
+	</select>
+	
+
+</mapper>
