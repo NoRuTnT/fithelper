@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -166,13 +166,13 @@ DROP TABLE IF EXISTS `ssafit`.`class` ;
 
 CREATE TABLE IF NOT EXISTS `ssafit`.`class` (
   `classId` INT NOT NULL AUTO_INCREMENT,
-  `trainer_trainerId` INT NOT NULL,
+  `trainerId` INT NOT NULL,
   `category` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`classId`),
-  INDEX `fk_class_trainer2_idx` (`trainer_trainerId` ASC) VISIBLE,
+  INDEX `fk_class_trainer2_idx` (`trainerId` ASC) VISIBLE,
   INDEX `fk_class_category1_idx` (`category` ASC) VISIBLE,
   CONSTRAINT `fk_class_trainer2`
-    FOREIGN KEY (`trainer_trainerId`)
+    FOREIGN KEY (`trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`gym` (
   `category` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
-  `like` INT NOT NULL,
+  `likeCount` INT NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
   `regDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`gymId`),
