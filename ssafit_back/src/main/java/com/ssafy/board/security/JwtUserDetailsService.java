@@ -20,7 +20,6 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         User entityUser = userdao.findByEmail(email);
 
         if(entityUser != null) return new JwtUserDetails(entityUser);
