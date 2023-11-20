@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.gym.model.dao.GymDao">
+	
+	<select id="selectOne" resultType="Gym" parameterType="int">
+		SELECT *
+		FROM Gym
+		WHERE gymId = #{gymId};
+	</select>
+
+	<insert id="insertGym" parameterType="Gym" keyProperty="gymId" useGeneratedKeys="true">
+		INSERT INTO Gym (gymId, gymownerId, name, category, status, price, description)
+		VALUES (#{gymId}, #{gymownerId}, #{category}, #{status}, #{price}, #{description})
+	</insert>
+	
+	<delete id="deleteGym" parameterType="int">
+		DELETE FROM Gym
+		WHERE gymId = #{gymId}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE Gym
+		SET viewCnt = viewCnt+1
+		WHERE gymId = #{gymId}
+	</update>
+	
+	<update id="updateGym" parameterType="Gym">
+		UPDATE Gym
+		SET name = #{name}, category = #{category}, status = #{status}, price = #{price}, description = #{description} ,regDate = now()
+		WHERE gymId = #{gymId}
+	</update>
+	
+	<select id="search" resultType="Gym" parameterType="SearchCondition">
+		select *
+		FROM Gym
+		<if test="key != 'none'">
+			WHERE Gym.${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="key == 'none'">
+			
+		</if>		
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+	
+	
+	<update id="updateLikeCntUp" parameterType="int">
+		UPDATE Gym
+		SET viewCnt = viewCnt+1
+		WHERE gymId = #{gymId}
+	</update>
+	
+	
+	<update id="updateLikeCntDown" parameterType="int">
+		UPDATE Gym
+		SET viewCnt = viewCnt-1
+		WHERE gymId = #{gymId}
+	</update>
+
+</mapper>

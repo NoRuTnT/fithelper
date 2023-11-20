@@ -34,13 +34,14 @@ export const useUserStore = defineStore('user', () => {
       url: REST_USER_API+'/login',
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem('access-token')
       },
       data: user
     }).then((response) => {
       if(response.data){
         alert("로그인 성공!");
-        sessionStorage.setItem('loginUser', JSON.stringify(response.data));
+        sessionStorage.setItem('access-token', response.data["access-token"]);
         router.push({ name: 'home' });        
       }else{
         alert("로그인 실패")

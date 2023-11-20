@@ -29,7 +29,8 @@ export const useBoardStore = defineStore('board', () => {
       url: REST_BOARD_API,
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + sessionStorage.getItem('access-token')
       },
       data: board
     })

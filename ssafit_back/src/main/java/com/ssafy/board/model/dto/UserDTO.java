@@ -7,7 +7,7 @@ public class UserDTO {
 	private String name; // 사용자의 이름
 	private String nickname; // 사용자 닉네임
 	private int cash; // 사용자가 가지고 있는 포인트
-	private Role role; //권한나누기
+	private String role; //권한나누기
 	private String token;
 	// 필드 선언 (이미 존재하는 필드들)
     private String error; // 오류 메시지를 저장할 필드
@@ -16,7 +16,7 @@ public class UserDTO {
 	}
 	
 
-	public UserDTO(String email, String levelId, String name, String nickname, int cash, Role role, String token) {
+	public UserDTO(String email, String levelId, String name, String nickname, int cash, String role, String token) {
 		super();
 		this.email = email;
 		this.levelId = levelId;
@@ -76,11 +76,11 @@ public class UserDTO {
 		this.cash = cash;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

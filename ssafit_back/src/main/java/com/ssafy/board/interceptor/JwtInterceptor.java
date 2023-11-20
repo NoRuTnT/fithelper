@@ -5,17 +5,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.ssafy.board.util.JwtUtil;
+import com.ssafy.board.security.JwtTokenUtil;
 
 @Component
 public class JwtInterceptor implements HandlerInterceptor{
 	private static final String HEADER_AUTH = "Authorization";
 	
 	@Autowired
-	private JwtUtil jwtUtil;
+	private UserDetailsService userDetailsService;
+	@Autowired
+	private JwtTokenUtil jwtUtil;
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -27,11 +31,12 @@ public class JwtInterceptor implements HandlerInterceptor{
 			}
 			
 			String token = request.getHeader(HEADER_AUTH);
-			
+			String username = jwtUtil.getUsernameFromToken(token);
+			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 			try {
 				if (token != null && token.startsWith("Bearer ")) {
 					token = token.substring(7);
-					jwtUtil.valid(token);
+					jwtUtil.validateToken(token, userDetails);
 					return true;
 				} else {
 					response.setStatus(HttpStatus.UNAUTHORIZED.value());
