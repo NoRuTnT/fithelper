@@ -23,6 +23,54 @@ public class Chatroom {
 		this.createDate = createDate;
 	}
 
+	public int getChatmsgId() {
+		return chatmsgId;
+	}
+
+	public void setChatmsgId(int chatmsgId) {
+		this.chatmsgId = chatmsgId;
+	}
+
+	public int getTrainerId() {
+		return trainerId;
+	}
+
+	public void setTrainerId(int trainerId) {
+		this.trainerId = trainerId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public int getRead_or_not() {
+		return read_or_not;
+	}
+
+	public void setRead_or_not(int read_or_not) {
+		this.read_or_not = read_or_not;
+	}
+
+	public Timestamp getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Chatroom [chatmsgId=" + chatmsgId + ", trainerId=" + trainerId + ", userId=" + userId + ", message="

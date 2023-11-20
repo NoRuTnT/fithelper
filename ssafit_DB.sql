@@ -56,7 +56,6 @@ AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 -- -----------------------------------------------------
 -- Table `ssafit`.`board`
 -- -----------------------------------------------------
@@ -147,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`trainer` (
   PRIMARY KEY (`trainerId`))
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `ssafit`.`category`
 -- -----------------------------------------------------
@@ -174,13 +172,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`class` (
   CONSTRAINT `fk_class_trainer2`
     FOREIGN KEY (`trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_class_category1`
     FOREIGN KEY (`category`)
     REFERENCES `ssafit`.`category` (`category`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -199,13 +197,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`participate` (
   CONSTRAINT `fk_participate_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_participate_class1`
     FOREIGN KEY (`classId`)
     REFERENCES `ssafit`.`class` (`classId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -422,6 +420,63 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`chatroom` (
   CONSTRAINT `fk_chatmsg_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ssafit`.`payment_method`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ssafit`.`payment_method` ;
+
+CREATE TABLE IF NOT EXISTS `ssafit`.`payment_method` (
+  `paymentId` INT NOT NULL,
+  `method` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`paymentId`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ssafit`.`pay_bank`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ssafit`.`pay_bank` ;
+
+CREATE TABLE IF NOT EXISTS `ssafit`.`pay_bank` (
+  `paybankId` INT NOT NULL,
+  `paymentId` INT NOT NULL,
+  `bank` VARCHAR(45) NOT NULL,
+  `ordermoney` VARCHAR(45) NOT NULL,
+  `putmoney` VARCHAR(45) NOT NULL,
+  `payvalid` VARCHAR(45) NOT NULL,
+  `paystatus` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`paybankId`),
+  INDEX `fk_pay_bank_payment_method1_idx` (`paymentId` ASC) VISIBLE,
+  CONSTRAINT `fk_pay_bank_payment_method1`
+    FOREIGN KEY (`paymentId`)
+    REFERENCES `ssafit`.`payment_method` (`paymentId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ssafit`.`pay_card`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ssafit`.`pay_card` ;
+
+CREATE TABLE IF NOT EXISTS `ssafit`.`pay_card` (
+  `paycardId` VARCHAR(45) NOT NULL,
+  `paymentId` INT NOT NULL,
+  `cardcompany` VARCHAR(45) NOT NULL,
+  `putmoney` VARCHAR(45) NOT NULL,
+  `ordermoney` VARCHAR(45) NOT NULL,
+  `paystatus` VARCHAR(45) NOT NULL,
+  INDEX `fk_table1_payment_method1_idx` (`paymentId` ASC) VISIBLE,
+  PRIMARY KEY (`paycardId`),
+  CONSTRAINT `fk_table1_payment_method1`
+    FOREIGN KEY (`paymentId`)
+    REFERENCES `ssafit`.`payment_method` (`paymentId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.ClassDao">
+	<!-- 개설된 전체 방 list를 보여줌 -->
+	<select id="selectAll" resultType="Class">
+		select *
+		from class
+	</select>
+	<!-- 하나의 방 정보를 보여줌 -->
+	<select id="selectOne" parameterType="int" resultType="Class">
+		SELECT * FROM class
+		WHERE classId = #{classId}
+	</select>
+	<!-- 트레이너가 방을 생성 -->
+	<insert id="insert" parameterType="Class">
+		
+	</insert>
+	<!-- 트레이너가 방의 정보를 수정. 방의 고유번호를 바꾸면 안됨. -->
+	<update id="update" parameterType="Class">
+		
+	</update>
+	<!-- 트레이너가 방을 삭제. participate테이블에 대한 delete도 동시에 발생한다. -->
+	<!-- 고유key 내용 삭제하면 연관된 외래키 내용은 자동으로 삭제됨 (ON DELETE CASCADE)-->
+	<delete id="delete" parameterType="int">
+		DELETE FROM class
+		WHERE classId = #{classId}
+	</delete>
+	
+	
+	
+</mapper>
