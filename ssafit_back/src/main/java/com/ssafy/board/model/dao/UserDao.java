@@ -10,7 +10,7 @@ public interface UserDao {
 
 	int insertUser(User user);
 	
-	User selectOne(String userId);
+	User selectOne(int userId);
 	
 	public void deleteUser(int userId);
 

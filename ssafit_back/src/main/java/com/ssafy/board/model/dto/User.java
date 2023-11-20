@@ -15,12 +15,12 @@ public class User {
 	private String sex;	// 회원 성별 (1:남성 /2:여성)
 	// level 테이블에만 존재하는 속성
 	private String levelName; // 회원의 등급에 대한 설명
-	private Role role; //권한나누기
+	private String role; //권한나누기
 	public User() {
 	}
 	
 	public User(String userId, String levelId, String name, String password, String nickname, String birth,
-			String email, String phonenum, String address, int cash, String sex, String levelName, Role role) {
+			String email, String phonenum, String address, int cash, String sex, String levelName, String role) {
 		super();
 		this.userId = userId;
 		this.levelId = levelId;
@@ -138,11 +138,11 @@ public class User {
 		this.levelName = levelName;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
