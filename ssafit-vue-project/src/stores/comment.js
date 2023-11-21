@@ -8,8 +8,6 @@ export const useCommentStore = defineStore('comment', () => {
     // 특정 글 번호에 해당하는 목록만 찾아서 가지고 오면 됨!
     const commentList = ref([])
     const getCommentList = function (boardId) {
-        // console.log('받은 parameter');
-        // console.log(boardId);
     http.get(`/api/comment/${boardId}`)
       .then((response) => {
         commentList.value = response.data
