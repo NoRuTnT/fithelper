@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -52,14 +55,20 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //generate token for user (토큰 생성)
-    public String generateToken(String email, String nickname) {
-    	System.out.println("Generating token for Email: " + email + ", Nickname: " + nickname);
+    public String generateToken(JwtUserDetails userDetails) {
+    	System.out.println("Generating token for Email: " + userDetails.getUsername() + ", Nickname: " + userDetails.getNickname()+"역할:"+ userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));	
         Map<String, Object> claims = new HashMap<>();
-        String encodedNickname = new String(nickname.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
-        claims.put("email", email);
+        String encodedNickname = new String(userDetails.getNickname().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        claims.put("email", userDetails.getUsername());
         claims.put("nickname", encodedNickname);
+        claims.put("role", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList())
+            );
         // 필요한 다른 정보들을 여기에 추가합니다.
-        return doGenerateToken(claims,email);
+        return doGenerateToken(claims,userDetails.getUsername());
     }
 
     //while creating the token - (토큰에 정보를 넣고, 시크릿 키를 이용해서 토큰을 compact하게 만든다)
@@ -77,6 +86,8 @@ public class JwtTokenUtil implements Serializable {
     //validate token (토큰의 유효여부를 검사한다)
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
+        final List<String> roles = getAllClaimsFromToken(token).get("role", List.class);
+        // 역할에 따른 추가적인 검증 로직 구현
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

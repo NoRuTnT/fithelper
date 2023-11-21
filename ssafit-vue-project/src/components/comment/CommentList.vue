@@ -18,7 +18,7 @@
                 </td>
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.regDate }}</td>
-                <td><button>글 삭제하기</button></td>
+                <td><button @click="deleteComment(comment.userId)">글 삭제하기</button></td>
             </tr>
         </table>
         <p>댓글 내용</p>
@@ -55,6 +55,9 @@ const comment = ref({
 
 const createComment = function () {
     store.createComment(comment.value)
+}
+const deleteComment = function(userId){
+    
 }
 
 // <!-- <RouterLink :to="`/board/detail/${board.boardId}`"></RouterLink> -->

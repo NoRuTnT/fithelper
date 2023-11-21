@@ -25,7 +25,7 @@
   
   const openVideo = function() {
   const videoId = props.video.id.videoId;
-  const videoURL = `https://www.youtube.com/embed/${videoId}`;
+  const videoURL = `https://youtube.com/watch?v=${videoId}`;
 
   // 새 창을 열어서 영상을 보여줌
   window.open(videoURL, '_blank');

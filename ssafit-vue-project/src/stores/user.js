@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
 import http from '@/api/http' // http 인스턴스를 임포트합니다.
+import { useAuthStore } from './auth';
+
 
 export const useUserStore = defineStore('user', () => {
   //회원 등록
+  const authStore = useAuthStore(); // auth 스토어 사용
   const createUser = async (user) => {
     try {
       await http.post('/api-user/signup', user);
@@ -21,7 +24,7 @@ export const useUserStore = defineStore('user', () => {
       const response = await http.post('/api-user/login', user);
       if (response.data) {
         alert("로그인 성공!");
-        sessionStorage.setItem('access-token', response.data["access-token"]);
+        authStore.setToken(response.data["access-token"]); // 토큰을 스토어에 저장
         router.push({ name: 'home' });
       } else {
         alert("로그인 실패");
