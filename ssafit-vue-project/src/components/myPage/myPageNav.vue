@@ -2,10 +2,10 @@
     <div>
         <nav>
             <ul>
-                <li>메인</li>
-                <li>클래스</li>
-                <li>1대1채팅</li>
-                <li>미구현입니다.</li>
+                <li><RouterLink to="/">메인</RouterLink></li>
+                <li><RouterLink to="/class">클래스</RouterLink></li>
+                <li><RouterLink to="/chatroom">1대1채팅</RouterLink></li>
+                <li><RouterLink to="/">미구현입니다.</RouterLink></li>
             </ul>
         </nav>
     </div>

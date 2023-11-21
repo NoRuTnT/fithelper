@@ -18,7 +18,7 @@
                 </td>
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.regDate }}</td>
-                <td><button @click="deleteComment(comment.userId)">글 삭제하기</button></td>
+                <td><button @click="deleteComment(comment.commentId)">글 삭제하기</button></td>
             </tr>
         </table>
         <p>댓글 내용</p>
@@ -30,10 +30,12 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
 import { useCommentStore } from "@/stores/comment";
+import { useUserStore } from '@/stores/user';
 import { onMounted, ref } from "vue";
 
 const route = useRoute();
 const store = useCommentStore();
+const userStore = useUserStore(); // 사용자 id를 가져와서 내가 쓴 글만 삭제 가능하게 만들기 위함.
 // onMounted(() => {
 //     store.getCommentList(route.params.id)
 // })
@@ -56,8 +58,16 @@ const comment = ref({
 const createComment = function () {
     store.createComment(comment.value)
 }
-const deleteComment = function(userId){
-    
+const deleteComment = function(UID){
+    const userInfo = ref({});
+
+
+    userInfo.value = userStore.getUser(); // 스토리지에서 받은 이메일을 넣어 주세요
+    if(true){ // userInfo.value.userId == UID
+        store.deleteComment(UID); // 게시글 삭제
+    }else{
+        alert('내가 쓴 댓글만 삭제할 수 있습니다!');
+    }
 }
 
 // <!-- <RouterLink :to="`/board/detail/${board.boardId}`"></RouterLink> -->

@@ -19,6 +19,11 @@ import SelectUserType from '@/components/User/SelectUserType.vue'
 import RegistUser from '@/components/User/RegistUser.vue'
 import RegistTrainer from '@/components/User/RegistTrainer.vue'
 
+// 마이페이지 항목 컴포넌트
+import ClassList from '@/components/myPage/Class.vue' 
+import Chatroom from '@/components/myPage/Chatroom.vue'
+
+
 import KakaoMap from '@/components/kakao/KakaoMap.vue'
 
 const router = createRouter({
@@ -32,7 +37,19 @@ const router = createRouter({
     { // 마이페이지
       path: '/myPage',
       name: 'myPage',
-      component: MyPageView
+      component: MyPageView,
+      children: [
+        {
+          path: "class",
+          name: "classList",
+          component: ClassList
+        },
+        {
+          path: "chatroom",
+          name: "chatroom",
+          component: Chatroom
+        },
+      ]
     },
     { // 게시판
       path: '/board',
