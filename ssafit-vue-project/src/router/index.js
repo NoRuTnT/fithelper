@@ -22,6 +22,7 @@ import RegistTrainer from '@/components/User/RegistTrainer.vue'
 // 마이페이지 항목 컴포넌트
 import ClassList from '@/components/myPage/Class.vue' 
 import Chatroom from '@/components/myPage/Chatroom.vue'
+import Main from '@/components/myPage/Main.vue'
 
 
 import KakaoMap from '@/components/kakao/KakaoMap.vue'
@@ -39,6 +40,11 @@ const router = createRouter({
       name: 'myPage',
       component: MyPageView,
       children: [
+        {
+          path: "",
+          name: "main",
+          component: Main
+        },
         {
           path: "class",
           name: "classList",
