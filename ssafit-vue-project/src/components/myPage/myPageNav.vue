@@ -2,9 +2,9 @@
     <div>
         <nav>
             <ul>
-                <li><RouterLink to="/">메인</RouterLink></li>
-                <li><RouterLink to="/class">클래스</RouterLink></li>
-                <li><RouterLink to="/chatroom">1대1채팅</RouterLink></li>
+                <li><RouterLink to="/myPage">메인</RouterLink></li>
+                <li><RouterLink to="/myPage/class">클래스</RouterLink></li>
+                <li><RouterLink to="/myPage/chatroom">1대1채팅</RouterLink></li>
                 <li><RouterLink to="/">미구현입니다.</RouterLink></li>
             </ul>
         </nav>

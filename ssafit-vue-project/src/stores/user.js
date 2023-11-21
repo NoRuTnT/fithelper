@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
 import http from '@/api/http' // http 인스턴스를 임포트합니다.
@@ -34,6 +35,15 @@ export const useUserStore = defineStore('user', () => {
       console.error(err);
     }
   };
+
+  // email로 User 객체에 대한 정보를 받아온다.
+  const user = ref({});
+  const getUser = function(email){
+    http.get(`/api-user/find/${email}`)
+    .then((response)=>{
+      user.value = response.value;
+    })
+  }
   
-  return { createUser, loginUser };
+  return { createUser, loginUser, user, getUser };
 });

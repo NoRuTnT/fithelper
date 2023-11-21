@@ -1,7 +1,6 @@
 <template>
     <div>
         <MyPageNav/>
-        <RouterView/>
         마이페이지 화면을 보여줍니다.
         <RouterView/>
     </div>
