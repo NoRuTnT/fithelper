@@ -34,21 +34,21 @@ public class CommentRestController {
 	private CommentService commentService;
 
 	//1. 목록
-	@GetMapping("/comment")
+	@GetMapping("/comment/{boardId}")
 	@ApiOperation(value="댓글 조회")
-	public List<Comment> list(Model model){		
-		return commentService.getList();
+	public List<Comment> list(@PathVariable int boardId){		
+		return commentService.getList(boardId);
 	}
 	
 		
-	//3. 등록
+	//2. 등록
 	@PostMapping("/comment")
-	public ResponseEntity<Comment> write(Comment comment){
+	public ResponseEntity<Comment> write(@RequestBody Comment comment){
 		commentService.writeComment(comment);
 		return new ResponseEntity<Comment>(comment, HttpStatus.CREATED);
 	}
 	
-	//4. 삭제
+	//3. 삭제
 	@DeleteMapping("/comment/{id}")
 	public ResponseEntity<Void> delete(@PathVariable int id){
 		commentService.removeComment(id);

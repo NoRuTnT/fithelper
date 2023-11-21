@@ -68,7 +68,7 @@ watchEffect(() => {
 });
 
 const logout = () => {  
-  sessionStorage.removeItem('loginUser'); 
+  sessionStorage.removeItem('access-token'); 
   alert("로그아웃"); 
   router.push({name:'home'});
 };
