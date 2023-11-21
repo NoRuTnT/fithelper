@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration{
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -51,8 +51,8 @@ public class SecurityConfiguration {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/", "/**", "/api-user/login", "/api-user/signup").permitAll()
-//            .antMatchers("/api/board/**").authenticated()
-//            .anyRequest().authenticated()
+            .antMatchers("/api/board/**").hasRole("user")
+            .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .and()

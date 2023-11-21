@@ -26,13 +26,10 @@ const router = useRouter();
 onMounted(() => {
     store.getBoard(route.params.id)
 })
-const deleteBoard = function () {
-    axios.delete(`http://localhost:8080/api/board/${route.params.id}`)
-        .then(() => {
-            router.push({ name: 'boardList' })
-        })
-}
 
+const deleteBoard = function () {
+    store.deleteBoard(route.params.id)
+}
 const updateBoard = function () {
     router.push({ name: 'boardUpdate'})
 }

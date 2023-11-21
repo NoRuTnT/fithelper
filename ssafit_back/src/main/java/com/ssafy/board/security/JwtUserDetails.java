@@ -14,10 +14,12 @@ import java.util.List;
 public class JwtUserDetails implements UserDetails {
 
     private User user;
+	private List<SimpleGrantedAuthority> authorities;
 
-    public JwtUserDetails(User user) {
+    public JwtUserDetails(User user, List<SimpleGrantedAuthority> authorities) {
         super();
         this.user = user;
+        this.authorities = authorities;
     }
 
 
@@ -29,7 +31,7 @@ public class JwtUserDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
-
+    
     @Override
     public String getPassword() {
         return user.getPassword();

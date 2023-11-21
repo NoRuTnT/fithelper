@@ -1,6 +1,10 @@
 package com.ssafy.board.security;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,10 +24,11 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User entityUser = userdao.findByEmail(email);
-
-        if(entityUser != null) return new JwtUserDetails(entityUser);
-
-        throw new UsernameNotFoundException("Could not find user with email : " + email);
+        User user = userdao.findByEmail(email); //사용자가 존재하지않을경우 예외처리필요
+        List<SimpleGrantedAuthority> authorities = Arrays.asList(
+                new SimpleGrantedAuthority("ROLE_" + user.getRole())
+            );
+        
+            return new JwtUserDetails(user, authorities);
     }
 }

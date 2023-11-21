@@ -30,7 +30,14 @@ export const useBoardStore = defineStore('board', () => {
         console.log(err)
       })
   }
-
+  const deleteBoard = function (id) {
+    http.delete(`/api/board/${id}`)
+    .then(() => {
+      router.push({ name: 'boardList' });
+    }).catch((error) => {
+      console.error('Failed to delete the board', error);
+    });
+  }
   const updateBoard = function () {
     http.put('/api/board', board.value)
       .then(() => {
@@ -47,5 +54,5 @@ export const useBoardStore = defineStore('board', () => {
       })
   }
 
-  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard, searchBoardList }
+  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard, searchBoardList, deleteBoard }
 })
