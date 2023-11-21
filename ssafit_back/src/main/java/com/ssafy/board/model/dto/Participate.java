@@ -1,5 +1,6 @@
 package com.ssafy.board.model.dto;
 /**운동수업 참가자의 DTO*/
+/** 여기서는 가입과 삭제에 대한 정보만 관리함 */
 public class Participate {
 	private int participateId; // 참가자의 고유식별번호
 	private int userId; // 일반회원 식별변호. 일반번호와 고유키로 연결됨
