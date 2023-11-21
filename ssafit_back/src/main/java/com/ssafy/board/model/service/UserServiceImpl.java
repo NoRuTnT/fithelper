@@ -106,7 +106,11 @@ public class UserServiceImpl implements UserService {
 	public void modifyUser(User user) {
 		userDao.updateUser(user);
 	}
-
+	
+	@Override
+	public User findUser (String email) {
+		return userDao.findByEmail(email);
+	}
 
 	@Override
 	public List<User> getFollowingList(int userId) {

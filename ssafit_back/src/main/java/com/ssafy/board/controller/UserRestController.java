@@ -115,6 +115,12 @@ public class UserRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@GetMapping("find/{email}")
+	public User findUserEmail(@PathVariable String email){
+		
+		return userService.findUser(email);
+	}
+	
 	
 	@GetMapping("getFollowingList/{id}")
 	public ResponseEntity<?> getFollowingList(@PathVariable int userId) {

@@ -33,7 +33,11 @@ public interface UserService {
 	
 
 	ResponseEntity<UserDTO> login(Map<String, String> body) throws IllegalAccessException;
+	
+	
 
 	boolean isEmailUnique(Integer id, String email);
+
+	User findUser(String email);
 	
 }
