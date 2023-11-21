@@ -62,6 +62,7 @@ public class JwtTokenUtil implements Serializable {
         Map<String, Object> claims = new HashMap<>();
         String encodedNickname = new String(userDetails.getNickname().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
         claims.put("email", userDetails.getUsername());
+        claims.put("userId",userDetails.getUserId());
         claims.put("nickname", encodedNickname);
         claims.put("role", userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

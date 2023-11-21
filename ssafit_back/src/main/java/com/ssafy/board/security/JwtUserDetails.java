@@ -47,6 +47,10 @@ public class JwtUserDetails implements UserDetails {
     public String getNickname() {
         return user.getNickname(); // User 객체에 nickname 필드가 있다고 가정
     }
+    
+    public int getUserId() {
+    	return user.getUserId();
+    }
 
 
     @Override
@@ -68,6 +72,9 @@ public class JwtUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+	
 
 
 	

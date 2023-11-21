@@ -2,8 +2,8 @@ package com.ssafy.board.model.dto;
 
 public class User {
 	// user 테이블에 존재하는 속성
-	private String userId; // 사용자의 식별번호
-	private String levelId; // 사용자의 등급을 나타내는 숫자
+	private int userId; // 사용자의 식별번호
+	private int levelId; // 사용자의 등급을 나타내는 숫자
 	private String name; // 사용자의 이름
 	private String password; // 사용자의 비밀번호
 	private String nickname; // 사용자 닉네임
@@ -19,7 +19,7 @@ public class User {
 	public User() {
 	}
 	
-	public User(String userId, String levelId, String name, String password, String nickname, String birth,
+	public User(int userId, int levelId, String name, String password, String nickname, String birth,
 			String email, String phonenum, String address, int cash, String sex, String levelName, String role) {
 		super();
 		this.userId = userId;
@@ -42,19 +42,19 @@ public class User {
 
 	
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
-	public String getLevelId() {
+	public int getLevelId() {
 		return levelId;
 	}
 
-	public void setLevelId(String levelId) {
+	public void setLevelId(int levelId) {
 		this.levelId = levelId;
 	}
 
