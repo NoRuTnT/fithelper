@@ -57,12 +57,14 @@ window.addEventListener('storage', () => {
   token.value = sessionStorage.getItem('access-token');
 });
 
+
   const logout = () => {  
     authStore.clearToken(); 
     token.value = null; // 토큰 반응형 데이터 업데이트
     alert("로그아웃"); 
     router.push({ name: 'home' });
   }; 
+
 
 </script>
 

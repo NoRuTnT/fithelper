@@ -5,7 +5,7 @@ import java.util.List;
 import com.ssafy.board.model.dto.Comment;
 
 public interface CommentService {
-	List<Comment> getList();
+	List<Comment> getList(int boardId);
 
 	void writeComment(Comment comment);
 

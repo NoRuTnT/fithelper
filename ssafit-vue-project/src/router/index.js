@@ -12,6 +12,8 @@ import BoardList from '@/components/board/BoardList.vue'
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardDetail from '@/components/board/BoardDetail.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
+// 댓글 내용 컴포넌트
+import CommentList from '@/components/Comment/CommentList.vue'
 
 import SelectUserType from '@/components/User/SelectUserType.vue'
 import RegistUser from '@/components/User/RegistUser.vue'
@@ -55,7 +57,15 @@ const router = createRouter({
         {
           path: "detail/:id", 
           name: "boardDetail",
-          component: BoardDetail
+          component: BoardDetail,
+          // 댓글 목록 표시
+          children: [
+            {
+              path: "comment",
+              name: "commentList",
+              component: CommentList
+            }
+          ]
         },
       ]
     },
