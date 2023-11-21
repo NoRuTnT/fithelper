@@ -4,10 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.board.model.dao.CommentDao">
 	
-
-	<select id="selectAll" resultType="Comment">
+	<select id="selectAll" parameterType="int" resultType="Comment">
 		select *
-		from Comment	
+		from Comment
+		WHERE boardId = #{boardId}
 	</select>
 	
 	<insert id="insertComment" parameterType="Comment" keyProperty="commentId" useGeneratedKeys="true">
@@ -20,19 +20,4 @@
 		WHERE commentId = #{commentId}
 	</delete>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
 </mapper>

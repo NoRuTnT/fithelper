@@ -15,8 +15,11 @@ public interface UserDao {
 	public void deleteUser(int userId);
 
 	public void updateUser(User user);
-
-
+  
 	User findByEmail(String email);
-	
+  
+	/**선택한 사람이 팔로우 하는 모든 사람을 보여줌*/
+	public List<User> selectAllFollowing(int userId);
+	/**선택한 사람을 팔로우 하는 모든 사람을 보여줌*/
+	public List<User> selectAllFollower(int userId);
 }

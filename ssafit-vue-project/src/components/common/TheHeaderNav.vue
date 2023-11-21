@@ -5,10 +5,9 @@
                 <span>SSAFIT</span>
                 <!-- board 관련 link를 추후에 동적 바인딩으로 (:to) 바꿔줘야 됨-->
                 <RouterLink to="/">Home</RouterLink> |
-                <RouterLink to="/kakao">헬스장찾기</RouterLink> |
                 <RouterLink to="/board">자유게시판</RouterLink> |
                 <RouterLink to="/youtube">영상게시판</RouterLink> | 
-                <!-- <RouterLink to="{name: 'boardCreate'}">BoardCreate</RouterLink> -->
+                <RouterLink to="/kakao">지도확인</RouterLink>
                 <span v-if="!loginUsernickname">
                     <RouterLink to="/login">SSAFIT 로그인</RouterLink> 
                 </span>
@@ -22,58 +21,49 @@
 </template>
 
 <script setup>
-
-import {  ref,watchEffect } from 'vue'; 
-import{useRouter} from 'vue-router';
-
+import { useAuthStore } from '@/stores/auth';
+import { ref, watch } from 'vue'; 
+import { useRouter } from 'vue-router';
 
 const loginUsernickname = ref(null);
-const router = useRouter()   
+const router = useRouter();
+const token = ref(sessionStorage.getItem('access-token')); // 토큰을 반응형 데이터로 관리 
+const authStore = useAuthStore();
 
-// Base64 문자열을 디코딩하는 함수
-function base64Decode(str) {
-  // Base64 URL에서 '+'와 '/' 문자를 각각 '-'와 '_'로 대체합니다.
-  const base64String = str.replace(/-/g, '+').replace(/_/g, '/');
-  // Base64로 디코딩
-  const decodedData = atob(base64String);
-  // 디코드된 문자열을 JSON 객체로 파싱
-  return JSON.parse(decodedData);
+
+const b64_to_utf8 = function ( str ) {
+  return decodeURIComponent(escape(window.atob( str )));
 }
 
-
-watchEffect(() => {
-  console.log('watchEffect 실행됨');
-  const token = sessionStorage.getItem('access-token');
-  console.log('세션 스토리지에서 가져온 토큰:', token);
-  if (token) {
-    // JWT는 세 부분으로 나뉘며, 각 부분은 '.'으로 구분됩니다.
-    const parts = token.split('.');
+watch(() => authStore.token, (newToken) => {
+  console.log('watchEffect 실행');
+  if (newToken) {
+    console.log('세션 스토리지에서 가져온 토큰:', newToken);
+    // 토큰이 있으면 사용자 닉네임 업데이트
+    const parts = newToken.split('.');
     if (parts.length === 3) {
-      const header = parts[0];
       const payload = parts[1];
-
-      // 헤더와 페이로드를 디코딩합니다.
-      const decodedHeader = base64Decode(header);
-      const decodedPayload = base64Decode(payload);
-
-      console.log('헤더:', decodedHeader);
+      const decodedPayload = b64_to_utf8(payload);
       console.log('페이로드:', decodedPayload);
-
-      // 사용자 정보 추출 (예: 닉네임)
-      loginUsernickname.value = decodedPayload.nickname || null;
+      loginUsernickname.value = JSON.parse(decodedPayload).nickname || null;
     }
   } else {
+    // 토큰이 없으면 사용자 닉네임 비움
     loginUsernickname.value = null;
   }
+}, { immediate: true }); // 컴포넌트 마운트 시 즉시 실행
+
+window.addEventListener('storage', () => {
+  token.value = sessionStorage.getItem('access-token');
 });
 
-const logout = () => {  
-  sessionStorage.removeItem('access-token'); 
-  alert("로그아웃"); 
-  router.push({name:'home'});
-};
 
-
+  const logout = () => {  
+    authStore.clearToken(); 
+    token.value = null; // 토큰 반응형 데이터 업데이트
+    alert("로그아웃"); 
+    router.push({ name: 'home' });
+  }; 
 
 
 </script>

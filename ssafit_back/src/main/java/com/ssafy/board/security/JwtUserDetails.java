@@ -14,10 +14,12 @@ import java.util.List;
 public class JwtUserDetails implements UserDetails {
 
     private User user;
+	private List<SimpleGrantedAuthority> authorities;
 
-    public JwtUserDetails(User user) {
+    public JwtUserDetails(User user, List<SimpleGrantedAuthority> authorities) {
         super();
         this.user = user;
+        this.authorities = authorities;
     }
 
 
@@ -29,7 +31,7 @@ public class JwtUserDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
-
+    
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -44,6 +46,10 @@ public class JwtUserDetails implements UserDetails {
     // 추가적인 사용자 정보를 반환하는 메서드
     public String getNickname() {
         return user.getNickname(); // User 객체에 nickname 필드가 있다고 가정
+    }
+    
+    public int getUserId() {
+    	return user.getUserId();
     }
 
 
@@ -66,6 +72,9 @@ public class JwtUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+	
 
 
 	

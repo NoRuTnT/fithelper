@@ -1,57 +1,49 @@
-// 로그인, 로그아웃, 회원관련 API를 연결
-
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
-import axios from 'axios'
+import http from '@/api/http' // http 인스턴스를 임포트합니다.
+import { useAuthStore } from './auth';
 
-const REST_USER_API = `http://localhost:8080/api-user`
 
 export const useUserStore = defineStore('user', () => {
-
   //회원 등록
-  const createUser = function (user) {
-    axios({
-      url: REST_USER_API+'/signup',
-      method: 'POST',
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      data: user
-    })
-      .then(() => {
-        alert("회원가입이 완료되었습니다.")
-        router.push({name: 'home'})
-      })
-      .catch((err) => {
-      alert("회원가입 실패.")
-      console.log(err)
-    })
-  }
+  const authStore = useAuthStore(); // auth 스토어 사용
+  const createUser = async (user) => {
+    try {
+      await http.post('/api-user/signup', user);
+      alert("회원가입이 완료되었습니다.");
+      router.push({ name: 'home' });
+    } catch (err) {
+      alert("회원가입 실패.");
+      console.error(err);
+    }
+  };
+  
   // 회원 로그인
-  const loginUser = function(user){
-    axios({
-      url: REST_USER_API+'/login',
-      method: 'POST',
-      headers: {        
-        "Content-Type": "application/json"
-      },
-      data: user
-    }).then((response) => {
-      if(response.data){
+  const loginUser = async (user) => {
+    try {
+      const response = await http.post('/api-user/login', user);
+      if (response.data) {
         alert("로그인 성공!");
-        sessionStorage.setItem('access-token', response.data['access-token']);
-        router.push({ name: 'home' });        
-      }else{
-        alert("로그인 실패")
-        console.log("로그인 실패");
-
+        authStore.setToken(response.data["access-token"]); // 토큰을 스토어에 저장
+        router.push({ name: 'home' });
+      } else {
+        alert("로그인 실패");
+        console.error("로그인 실패");
       }
-    })
-    .catch((err)=>{
-      console.log(err);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // email로 User 객체에 대한 정보를 받아온다.
+  const user = ref({});
+  const getUser = function(email){
+    http.get(`/api-user/find/${email}`)
+    .then((response)=>{
+      user.value = response.value;
     })
   }
   
-  return {  createUser, loginUser}
-})
+  return { createUser, loginUser, user, getUser };
+});

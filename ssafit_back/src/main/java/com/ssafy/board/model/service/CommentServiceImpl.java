@@ -21,8 +21,8 @@ public class CommentServiceImpl implements CommentService {
 	
 	
 	@Override
-	public List<Comment> getList() {
-		return commentDao.selectAll();
+	public List<Comment> getList(int boardId) {
+		return commentDao.selectAll(boardId);
 	}
 
 	@Transactional

@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
@@ -35,15 +36,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
-	 	
 	
 	@Override
 	public List<User> getUserList() {
 		return userDao.selectAll();
 	}
-	
-	
-	
+
 	@Override
 	public ResponseEntity<UserDTO> login(@RequestBody Map<String, String> body) {
 	    String email = body.get("email");
@@ -73,7 +71,8 @@ public class UserServiceImpl implements UserService {
 	    
 	    UserDTO userDTO = new UserDTO();
 	    
-	    String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
+//	    String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
+	    String token = jwtTokenUtil.generateToken(jwtUserDetails);
 	    userDTO.setToken(token); // 토큰 설정
 
 	    return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -106,8 +105,23 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modifyUser(User user) {
 		userDao.updateUser(user);
-		
-	} 
+	}
+	
+	@Override
+	public User findUser (String email) {
+		return userDao.findByEmail(email);
+	}
+
+	@Override
+	public List<User> getFollowingList(int userId) {
+		return userDao.selectAllFollowing(userId);
+	}
+
+
+	@Override
+	public List<User> getFollowerList(int userId) {
+		return userDao.selectAllFollower(userId);
+	}
 	
 	@Override
 	public UserDTO save(User user, MultipartFile multipartFile) throws IOException {		  
@@ -155,6 +169,3 @@ public class UserServiceImpl implements UserService {
 	
 
 }
-
-
-

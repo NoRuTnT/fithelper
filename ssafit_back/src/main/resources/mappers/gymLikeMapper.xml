@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.GymLikeDao">
+	<!-- 좋아요 표시하기 -->
+	<insert id="insertGymLike" parameterType="GymLike">
+		
+	</insert>
+	<!-- 좋아요 취소하기 -->
+	<delete id="deleteGymLike" parameterType="int">
+		DELETE FROM gym_like
+		WHERE userId = #{userId}
+	</delete>
+	<!-- 게시판 좋아요 개수 알려주기 -->
+	<select id="selectAll" resultType="int">
+		SELECT COUNT(*) FROM gym_like
+		WHERE gymId = #{gymId}
+	</select>
+
+</mapper>

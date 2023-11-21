@@ -4,27 +4,60 @@ import HomeView from '@/views/HomeView.vue'
 import BoardView from '@/views/BoardView.vue'
 import YoutubeView from '@/views/YoutubeView.vue'
 import LoginView from '@/views/LoginView.vue'
-import KakaoView from "@/views/KakaoView.vue";
 import RegistUserView from '@/views/RegistUserView.vue'
+import KakaoView from '@/views/KakaoView.vue'
+import MyPageView from '@/views/MyPageView.vue'
 
 import BoardList from '@/components/board/BoardList.vue'
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardDetail from '@/components/board/BoardDetail.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
+// 댓글 내용 컴포넌트
+import CommentList from '@/components/Comment/CommentList.vue'
 
 import SelectUserType from '@/components/User/SelectUserType.vue'
 import RegistUser from '@/components/User/RegistUser.vue'
 import RegistTrainer from '@/components/User/RegistTrainer.vue'
 
+// 마이페이지 항목 컴포넌트
+import ClassList from '@/components/myPage/Class.vue' 
+import Chatroom from '@/components/myPage/Chatroom.vue'
+import Main from '@/components/myPage/Main.vue'
+
+
+import KakaoMap from '@/components/kakao/KakaoMap.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
+    { // 홈 화면
       path: '/',
       name: 'home',
       component: HomeView
     },
-    {
+    { // 마이페이지
+      path: '/myPage',
+      name: 'myPage',
+      component: MyPageView,
+      children: [
+        {
+          path: "",
+          name: "main",
+          component: Main
+        },
+        {
+          path: "class",
+          name: "classList",
+          component: ClassList
+        },
+        {
+          path: "chatroom",
+          name: "chatroom",
+          component: Chatroom
+        },
+      ]
+    },
+    { // 게시판
       path: '/board',
       name: 'board',
       component: BoardView,
@@ -47,7 +80,15 @@ const router = createRouter({
         {
           path: "detail/:id", 
           name: "boardDetail",
-          component: BoardDetail
+          component: BoardDetail,
+          // 댓글 목록 표시
+          children: [
+            {
+              path: "comment",
+              name: "commentList",
+              component: CommentList
+            }
+          ]
         },
       ]
     },
@@ -60,11 +101,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
-    },
-    {
-      path: "/kakao",
-      name: "kakao",
-      component: KakaoView,
     },
     {
       path: '/registUser',
@@ -87,6 +123,11 @@ const router = createRouter({
           component: RegistTrainer
         },
       ]
+    },
+    {
+      path: "/kakao",
+      name: "kakao",
+      component: KakaoView,
     },
   ]
 })

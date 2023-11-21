@@ -12,10 +12,12 @@ public class Class {
 	private String cost; // 수업비용
 	private Date time; // 강의시간
 	
+	private String category; // 운동부위 항목
+	
 	public Class() {
 	}
 
-	public Class(int classId, int trainerId, int name, String detail, String cost, Date time) {
+	public Class(int classId, int trainerId, int name, String detail, String cost, Date time, String category) {
 		super();
 		this.classId = classId;
 		this.trainerId = trainerId;
@@ -23,6 +25,7 @@ public class Class {
 		this.detail = detail;
 		this.cost = cost;
 		this.time = time;
+		this.category = category;
 	}
 
 	public int getClassId() {
@@ -73,10 +76,19 @@ public class Class {
 		this.time = time;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Class [classId=" + classId + ", trainerId=" + trainerId + ", name=" + name + ", detail=" + detail
-				+ ", cost=" + cost + ", time=" + time + "]";
+				+ ", cost=" + cost + ", time=" + time + ", category=" + category + "]";
 	}
+
 	
 }

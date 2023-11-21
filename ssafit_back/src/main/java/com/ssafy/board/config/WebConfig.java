@@ -1,5 +1,6 @@
 package com.ssafy.board.config;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -16,7 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Autowired
 	private JwtInterceptor jwtInterceptor;	
-	
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -27,6 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+
 		registry.addInterceptor(jwtInterceptor)
 		.addPathPatterns("/**")
 		.excludePathPatterns("/api-user/login", "/swagger-resources/**","/swagger-ui/**","/v2/api-docs");

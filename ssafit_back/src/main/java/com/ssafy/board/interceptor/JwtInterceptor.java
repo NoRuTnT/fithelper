@@ -31,23 +31,24 @@ public class JwtInterceptor implements HandlerInterceptor{
 			}
 			
 			String token = request.getHeader(HEADER_AUTH);
-			String username = jwtUtil.getUsernameFromToken(token);
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			try {
-				if (token != null && token.startsWith("Bearer ")) {
-					token = token.substring(7);
-					jwtUtil.validateToken(token, userDetails);
-					return true;
-				} else {
-					response.setStatus(HttpStatus.UNAUTHORIZED.value());
-					response.getWriter().write("Unauthorized: No Bearer Token Provided");
-					return false;
-				}
-			} catch (Exception e) {
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
-				response.getWriter().write("Unauthorized: Invalid Token");
-				return false;
+			if (token == null || !token.startsWith("Bearer ")) {
+			    response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			    response.getWriter().write("Unauthorized: No Bearer Token Provided");
+			    return false;
 			}
+			
+			
+		 token = token.substring(7); // Bearer 접두사 제거
+	        try {
+	            String username = jwtUtil.getUsernameFromToken(token);
+	            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+	            jwtUtil.validateToken(token, userDetails);
+	            return true;
+	        } catch (Exception e) {
+	            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+	            response.getWriter().write("Unauthorized: Invalid Token");
+	            return false;
+	        }
 	        
 	    }
 		return true; // 계속 진행

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.TrainerDao">
+	
+	<select id="selectAll" resultType="Trainer">
+		select *
+		from Trainer
+		
+	</select>
+
+	<insert id="insertTrainer" parameterType="Trainer" useGeneratedKeys="true" keyProperty="trainerId">
+		insert into trainer (id, name,password, nickname, birth, email, phonenum,address,cash,sex)
+		values (#{id},#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
+	</insert>
+	
+	<delete id="deleteTrainer" parameterType="int">
+		DELETE FROM trainer
+		WHERE trainerId = #{trainerId}
+	</delete>
+	
+	<update id="updateTrainer" parameterType="Trainer">
+		UPDATE trainer
+		SET trainerId = #{trainerId}, password = #{password}, nickname = #{nickname}, birth = #{birth}, email = #{email}, phonenum = #{phonenum}, address = #{address}
+		WHERE trainerId = #{trainerId}
+	</update>
+	
+	<select id="findByEmail" parameterType="String" resultType="Trainer" >
+		select * 
+		from trainer
+		where email = #{email}
+	</select>
+	
+	
+</mapper>

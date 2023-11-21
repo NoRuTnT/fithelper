@@ -22,19 +22,32 @@
 	
 	<update id="updateUser" parameterType="User">
 		UPDATE User
-		SET userId = #{userId}, password = #{password}, nickname = #{nickname}, birth = #{nickname}, email = #{email}, phonenum = #{phonenum}, address = #{address}
+		SET userId = #{userId}, password = #{password}, nickname = #{nickname}, birth = #{birth}, email = #{email}, phonenum = #{phonenum}, address = #{address}
 		WHERE userId = #{userId}
 	</update>
-	
-	
 	
 	<select id="findByEmail" parameterType="String" resultType="User" >
 		select * 
 		from User
 		where email = #{email}
-		
 	</select>
 	
+	<!-- 선택한 사람이 팔로우 하는 모든 사람을 보여줌 -->
+	<select id="getFollowingList" parameterType="int" resultType="User">
+		<!-- SELECT userId, levelId, name, password, nickname, birth, email, phonenum, address, cash, sex
+		 FROM user WHERE userId = (SELECT following FROM follow WHERE follower = #{userId}) -->
+		 <!-- 안되면 위에있는 코드 실행 -->
+		 SELECT userId, levelId, name, password, nickname, birth, email, phonenum, address, cash, sex
+		 FROM user WHERE userId in (SELECT following FROM follow WHERE follower = #{userId})
+	</select>
+	<!-- 선택한 사람을 팔로우 하는 모든 사람을 보여줌 -->
+	<select id="getFollowerList" parameterType="int" resultType="User">
+		<!-- SELECT userId, levelId, name, password, nickname, birth, email, phonenum, address, cash, sex
+		 FROM user WHERE userId = (SELECT follower FROM follow WHERE following = #{userId}) -->
+		 <!-- 안되면 위에있는 코드 실행 -->
+		 SELECT userId, levelId, name, password, nickname, birth, email, phonenum, address, cash, sex
+		 FROM user WHERE userId in (SELECT follower FROM follow WHERE following = #{userId})
+	</select>
 	
 	
 </mapper>

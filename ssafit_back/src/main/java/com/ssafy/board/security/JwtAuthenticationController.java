@@ -34,7 +34,8 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 
         JwtUserDetails jwtUserDetails = (JwtUserDetails) userDetails;
-        String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
+//        String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
+        String token = jwtTokenUtil.generateToken(jwtUserDetails);
 
         return ResponseEntity.ok(token); // 여기서 userDetails를 사용하여 생성된 토큰을 반환합니다.
     }
