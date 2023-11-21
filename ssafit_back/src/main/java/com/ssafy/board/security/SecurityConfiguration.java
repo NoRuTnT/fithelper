@@ -50,7 +50,7 @@ public class SecurityConfiguration {
             .cors().and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api-user/login", "/api-user/signup").permitAll()
+            .antMatchers("/", "/**", "/api-user/login", "/api-user/signup").permitAll()
 //            .antMatchers("/api/board/**").authenticated()
 //            .anyRequest().authenticated()
             .and()
@@ -65,5 +65,4 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    // configure(WebSecurity) 메소드는 동일하게 유지
 }

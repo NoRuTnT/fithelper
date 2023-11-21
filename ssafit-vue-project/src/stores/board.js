@@ -1,61 +1,51 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
-import axios from 'axios'
-// Back API URL로 고쳐주기
-const REST_BOARD_API = `http://localhost:8080/api/board`
+import http from '@/api/http' // http 인스턴스를 임포트합니다.
 
 export const useBoardStore = defineStore('board', () => {
   const boardList = ref([])
+
   const getBoardList = function () {
-    axios.get(REST_BOARD_API)
+    http.get('/api/board')
       .then((response) => {
-      boardList.value = response.data
+        boardList.value = response.data
       })
   }
 
-  //게시글 하나
   const board = ref({})
   const getBoard = function (boardId) {
-    axios.get(`${REST_BOARD_API}/${boardId}`)
+    http.get(`/api/board/${boardId}`)
       .then((response) => {
-      board.value = response.data
-    })
+        board.value = response.data
+      })
   }
 
-  //게시글 등록
   const createBoard = function (board) {
-    axios({
-      url: REST_BOARD_API,
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + sessionStorage.getItem('access-token')
-      },
-      data: board
-    })
+    http.post('/api/board', board)
       .then(() => {
-        router.push({ name: 'boardList'})
+        router.push({ name: 'boardList' })
       })
       .catch((err) => {
-      console.log(err)
-    })
+        console.log(err)
+      })
   }
 
   const updateBoard = function () {
-    axios.put(REST_BOARD_API, board.value)
+    http.put('/api/board', board.value)
       .then(() => {
-      router.push({name: 'boardList'})
-    })
+        router.push({ name: 'boardList' })
+      })
   }
 
   const searchBoardList = function (searchCondition) {
-    axios.get(REST_BOARD_API, {
+    http.get('/api/board', {
       params: searchCondition
     })
       .then((res) => {
         boardList.value = res.data
-    })
+      })
   }
-  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard,searchBoardList }
+
+  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard, searchBoardList }
 })

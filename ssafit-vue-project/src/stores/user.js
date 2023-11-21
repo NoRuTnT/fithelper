@@ -1,58 +1,36 @@
-// 로그인, 로그아웃, 회원관련 API를 연결
-
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
-import axios from 'axios'
-
-const REST_USER_API = `http://localhost:8080/api-user`
+import http from '@/api/http' // http 인스턴스를 임포트합니다.
 
 export const useUserStore = defineStore('user', () => {
-
   //회원 등록
-  const createUser = function (user) {
-    axios({
-      url: REST_USER_API+'/signup',
-      method: 'POST',
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      data: user
-    })
-      .then(() => {
-        alert("회원가입이 완료되었습니다.")
-        router.push({name: 'home'})
-      })
-      .catch((err) => {
-      alert("회원가입 실패.")
-      console.log(err)
-    })
-  }
+  const createUser = async (user) => {
+    try {
+      await http.post('/api-user/signup', user);
+      alert("회원가입이 완료되었습니다.");
+      router.push({ name: 'home' });
+    } catch (err) {
+      alert("회원가입 실패.");
+      console.error(err);
+    }
+  };
+  
   // 회원 로그인
-  const loginUser = function(user){
-    axios({
-      url: REST_USER_API+'/login',
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + sessionStorage.getItem('access-token')
-      },
-      data: user
-    }).then((response) => {
-      if(response.data){
+  const loginUser = async (user) => {
+    try {
+      const response = await http.post('/api-user/login', user);
+      if (response.data) {
         alert("로그인 성공!");
         sessionStorage.setItem('access-token', response.data["access-token"]);
-        router.push({ name: 'home' });        
-      }else{
-        alert("로그인 실패")
-        console.log("로그인 실패");
-
+        router.push({ name: 'home' });
+      } else {
+        alert("로그인 실패");
+        console.error("로그인 실패");
       }
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   
-  return {  createUser, loginUser}
-})
+  return { createUser, loginUser };
+});
