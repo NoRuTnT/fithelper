@@ -16,4 +16,6 @@ public interface ClassDao {
 	public void delete(int classId);
 	/**트레이너가 자신이 생성한 방 리스트를 확인*/
 	public List<Class> selectTrainerClassList(int trainerId);
+	/**user가 자신이 가입한 방 리스트를 확인*/
+	public List<Class> selectUserClassList(int userId);
 }

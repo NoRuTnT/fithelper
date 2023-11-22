@@ -43,6 +43,11 @@ public class ClassServiceImpl implements ClassService{
 		return classDao.selectTrainerClassList(trainerId);
 	}
 
+	@Override
+	public List<Class> selectUserClassList(int userId) {
+		return classDao.selectUserClassList(userId);
+	}
+
 	
 	
 }

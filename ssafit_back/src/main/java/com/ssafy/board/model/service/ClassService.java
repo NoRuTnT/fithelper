@@ -16,5 +16,7 @@ public interface ClassService {
 	void removeClass(int classId);
 	/**트레이너가 자신이 생성한 방 리스트를 확인*/
 	List<Class> selectTrainerClassList(int trainerId);
+	/**user가 자신이 가입한 방 리스트를 확인*/
+	List<Class> selectUserClassList(int userId);
 
 }

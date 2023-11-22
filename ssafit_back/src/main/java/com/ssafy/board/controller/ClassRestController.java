@@ -70,10 +70,19 @@ public class ClassRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK); 
 	}
 	/**트레이너가 자신이 생성한 방 리스트를 확인*/
-	@GetMapping("/class/select/{trainerId}")
+	@GetMapping("/class/trainerSelect/{trainerId}")
 	@ApiOperation(value="트레이너의 방 list 확인")
 	public ResponseEntity<?> selectTrainerClass(@PathVariable int trainerId){
 		List<Class> list = classService.selectTrainerClassList(trainerId);
+		if(list==null || list.size()==0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Class>>(list, HttpStatus.OK); 
+	}
+	/**user가 자신이 가입한 방 리스트를 확인*/
+	@GetMapping("/class/userSelect/{userId}")
+	@ApiOperation(value="user의 방 list 확인")
+	public ResponseEntity<?> selectUserClass(@PathVariable int userId){
+		List<Class> list = classService.selectUserClassList(userId);
 		if(list==null || list.size()==0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Class>>(list, HttpStatus.OK); 
