@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
   `address` VARCHAR(45) NULL DEFAULT NULL,
   `cash` INT NULL DEFAULT 0,
   `sex` CHAR(1) NOT NULL,
+  `role` VARCHAR(40) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`userId`),
   INDEX `fk_user_level1_idx` (`levelId` ASC) VISIBLE,
   CONSTRAINT `fk_user_level1`
@@ -55,6 +56,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 -- -----------------------------------------------------
 -- Table `ssafit`.`board`
@@ -99,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`comment` (
   CONSTRAINT `fk_comment_board1`
     FOREIGN KEY (`boardId`)
     REFERENCES `ssafit`.`board` (`boardId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE -- 게시글이 삭제되면 댓글도 자동으로 삭제되어야 함
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
@@ -146,6 +148,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`trainer` (
   PRIMARY KEY (`trainerId`))
 ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `ssafit`.`category`
 -- -----------------------------------------------------
@@ -164,21 +167,21 @@ DROP TABLE IF EXISTS `ssafit`.`class` ;
 
 CREATE TABLE IF NOT EXISTS `ssafit`.`class` (
   `classId` INT NOT NULL AUTO_INCREMENT,
-  `trainerId` INT NOT NULL,
+  `trainer_trainerId` INT NOT NULL,
   `category` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`classId`),
-  INDEX `fk_class_trainer2_idx` (`trainerId` ASC) VISIBLE,
+  INDEX `fk_class_trainer2_idx` (`trainer_trainerId` ASC) VISIBLE,
   INDEX `fk_class_category1_idx` (`category` ASC) VISIBLE,
   CONSTRAINT `fk_class_trainer2`
-    FOREIGN KEY (`trainerId`)
+    FOREIGN KEY (`trainer_trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_class_category1`
     FOREIGN KEY (`category`)
     REFERENCES `ssafit`.`category` (`category`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -197,13 +200,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`participate` (
   CONSTRAINT `fk_participate_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_participate_class1`
     FOREIGN KEY (`classId`)
     REFERENCES `ssafit`.`class` (`classId`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -257,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`gym` (
   `category` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
-  `likeCount` INT NOT NULL,
+  `like` INT NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
   `regDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`gymId`),
@@ -315,8 +318,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`follow` (
   CONSTRAINT `fk_follow_user2`
     FOREIGN KEY (`following`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -340,8 +343,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`board_like` (
   CONSTRAINT `fk_comment_like_board1`
     FOREIGN KEY (`boardId`)
     REFERENCES `ssafit`.`board` (`boardId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -392,8 +395,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`user_reserve` (
   CONSTRAINT `fk_user_reserve_gym1`
     FOREIGN KEY (`gymId`)
     REFERENCES `ssafit`.`gym` (`gymId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -426,63 +429,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ssafit`.`payment_method`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ssafit`.`payment_method` ;
-
-CREATE TABLE IF NOT EXISTS `ssafit`.`payment_method` (
-  `paymentId` INT NOT NULL,
-  `method` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`paymentId`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ssafit`.`pay_bank`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ssafit`.`pay_bank` ;
-
-CREATE TABLE IF NOT EXISTS `ssafit`.`pay_bank` (
-  `paybankId` INT NOT NULL,
-  `paymentId` INT NOT NULL,
-  `bank` VARCHAR(45) NOT NULL,
-  `ordermoney` VARCHAR(45) NOT NULL,
-  `putmoney` VARCHAR(45) NOT NULL,
-  `payvalid` VARCHAR(45) NOT NULL,
-  `paystatus` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`paybankId`),
-  INDEX `fk_pay_bank_payment_method1_idx` (`paymentId` ASC) VISIBLE,
-  CONSTRAINT `fk_pay_bank_payment_method1`
-    FOREIGN KEY (`paymentId`)
-    REFERENCES `ssafit`.`payment_method` (`paymentId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `ssafit`.`pay_card`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ssafit`.`pay_card` ;
-
-CREATE TABLE IF NOT EXISTS `ssafit`.`pay_card` (
-  `paycardId` VARCHAR(45) NOT NULL,
-  `paymentId` INT NOT NULL,
-  `cardcompany` VARCHAR(45) NOT NULL,
-  `putmoney` VARCHAR(45) NOT NULL,
-  `ordermoney` VARCHAR(45) NOT NULL,
-  `paystatus` VARCHAR(45) NOT NULL,
-  INDEX `fk_table1_payment_method1_idx` (`paymentId` ASC) VISIBLE,
-  PRIMARY KEY (`paycardId`),
-  CONSTRAINT `fk_table1_payment_method1`
-    FOREIGN KEY (`paymentId`)
-    REFERENCES `ssafit`.`payment_method` (`paymentId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `ssafit`.`payment_kakao`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `ssafit`.`payment_kakao` ;
@@ -500,3 +446,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+USE ssafit;
+SELECT * FROM comment;

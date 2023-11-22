@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
-    public static final long JWT_TOKEN_VALIDITY = 60 * 60; //토큰의 기한 (5일로 설정)
+    public static final long JWT_TOKEN_VALIDITY = 60 * 60* 24; //토큰의 기한 
     
     @Value("${jwt.secret}")
     private String secret;

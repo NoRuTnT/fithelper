@@ -14,4 +14,6 @@ public interface ClassDao {
 	public void update(Class c);
 	/**트레이너가 방을 삭제. participate테이블에 대한 delete도 동시에 발생한다.*/
 	public void delete(int classId);
+	/**트레이너가 자신이 생성한 방 리스트를 확인*/
+	public List<Class> selectTrainerClassList(int trainerId);
 }

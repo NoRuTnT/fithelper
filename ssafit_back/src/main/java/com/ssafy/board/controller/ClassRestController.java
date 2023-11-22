@@ -69,4 +69,13 @@ public class ClassRestController {
 		classService.removeClass(classId);
 		return new ResponseEntity<Void>(HttpStatus.OK); 
 	}
+	/**트레이너가 자신이 생성한 방 리스트를 확인*/
+	@GetMapping("/class/select/{trainerId}")
+	@ApiOperation(value="트레이너의 방 list 확인")
+	public ResponseEntity<?> selectTrainerClass(@PathVariable int trainerId){
+		List<Class> list = classService.selectTrainerClassList(trainerId);
+		if(list==null || list.size()==0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Class>>(list, HttpStatus.OK); 
+	}
 }

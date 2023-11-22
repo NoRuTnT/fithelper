@@ -16,10 +16,11 @@ export const useCommentStore = defineStore('comment', () => {
       })
     } 
     // 댓글 작성
-    const createComment = function (comment) {
+    const createComment = function (comment, paramId) {
     http.post('/api/comment', comment)
       .then(() => {
         // router.push({ name: 'boardList' })
+        router.push({ path: `/board/detail/${paramId}`})
       })
       .catch((err) => {
         console.log(err)
