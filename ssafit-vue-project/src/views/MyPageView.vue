@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <MyPageNav/>        
-        <RouterView/>
+    <div class="container">
+        <MyPageNav class="nav"/>        
+        <RouterView class="content"/>
     </div>
 </template>
 
@@ -22,5 +22,12 @@ emit('hideNav');
 </script>
 
 <style scoped>
-
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+  /* 메인 컨텐츠 영역 스타일 */
+}
 </style>

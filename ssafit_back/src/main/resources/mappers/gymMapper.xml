@@ -11,8 +11,8 @@
 	</select>
 
 	<insert id="insertGym" parameterType="Gym" keyProperty="gymId" useGeneratedKeys="true">
-		INSERT INTO Gym (gymId, gymownerId, name, category, status, price, description)
-		VALUES (#{gymId}, #{gymownerId}, #{category}, #{status}, #{price}, #{description})
+		INSERT INTO Gym (gymId, name, category, status, price, description)
+		VALUES (#{gymId}, #{category}, #{status}, #{price}, #{description})
 	</insert>
 	
 	<delete id="deleteGym" parameterType="int">

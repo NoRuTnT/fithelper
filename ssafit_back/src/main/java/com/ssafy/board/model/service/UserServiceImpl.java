@@ -111,7 +111,18 @@ public class UserServiceImpl implements UserService {
 	public User findUser (String email) {
 		return userDao.findByEmail(email);
 	}
-
+	
+	@Override
+	public void chargeMoney(int userId, int money) {
+		userDao.chargeCash(userId, money);
+	}
+	
+	@Override
+	public void useMoney(int userId, int money) {
+		userDao.useCash(userId, money);
+	}
+	
+	
 	@Override
 	public List<User> getFollowingList(int userId) {
 		return userDao.selectAllFollowing(userId);
@@ -122,6 +133,10 @@ public class UserServiceImpl implements UserService {
 	public List<User> getFollowerList(int userId) {
 		return userDao.selectAllFollower(userId);
 	}
+	
+	
+	
+	
 	
 	@Override
 	public UserDTO save(User user, MultipartFile multipartFile) throws IOException {		  

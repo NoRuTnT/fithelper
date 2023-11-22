@@ -7,7 +7,11 @@
                 <RouterLink to="/">Home</RouterLink> |
                 <RouterLink to="/board">자유게시판</RouterLink> |
                 <RouterLink to="/youtube">영상게시판</RouterLink> | 
-                <RouterLink to="/kakao">지도확인</RouterLink>
+                <RouterLink to="/kakao">지도확인</RouterLink> |
+                <span v-if="authStore.role === 'user'">
+                  <RouterLink to="/mypage">마이페이지</RouterLink> 
+                </span>               
+                
                 <span v-if="!loginUsernickname">
                     <RouterLink to="/login">SSAFIT 로그인</RouterLink> 
                 </span>
@@ -38,9 +42,12 @@ const authStore = useAuthStore();
 const b64_to_utf8 = function ( str ) {
   return decodeURIComponent(escape(window.atob( str )));
 }
+authStore.updateRoleFromToken();
+
+
 
 watch(() => authStore.token, (newToken) => {
-  console.log('watchEffect 실행');
+  console.log('watchEffect 실행');  
   if (newToken) {
     console.log('세션 스토리지에서 가져온 토큰:', newToken);
     // 토큰이 있으면 사용자 닉네임 업데이트

@@ -11,8 +11,8 @@
 	</select>
 
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
-		insert into User (levelId, name,password, nickname, birth, email, phonenum,address,cash,sex)
-		values (#{levelId},#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
+		insert into User (name,password, nickname, birth, email, phonenum,address,cash,totalcash,sex)
+		values (#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{totalcash},#{sex})
 	</insert>
 	
 	<delete id="deleteUser" parameterType="int">
@@ -31,6 +31,21 @@
 		from User
 		where email = #{email}
 	</select>
+	
+	
+	<update id="chargeCash"  parameterType="map">
+		UPDATE User
+		SET cash = money + #{cash}, totalcash = money + #{totalcash}
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="useCash"  parameterType="map">
+		UPDATE User
+		SET cash = #{cash} - money
+		WHERE userId = #{userId}
+	</update>
+	
+	
 	
 	<!-- 선택한 사람이 팔로우 하는 모든 사람을 보여줌 -->
 	<select id="getFollowingList" parameterType="int" resultType="User">

@@ -22,9 +22,9 @@
 	
 	
 	<select id="userselectAll" resultType="UserReserve">
-		select *
-		from User_Reserve
-		where userId= #{userId}	
+		select gym.name , meetTime
+		from User_Reserve, gym
+		where User_reserve.gymId = gym.gymId and userId= #{userId}	
 	</select>
 	
 	<select id="gymselectAll" resultType="UserReserve">
