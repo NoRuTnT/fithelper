@@ -30,6 +30,7 @@
         <div>
             <button @click="searchBoardList">검색</button>
         </div>
+        
     </div>
 </template>
   
@@ -47,11 +48,15 @@ const searchInfo = ref({
 const searchBoardList = function () {
     store.searchBoardList(searchInfo.value)
 }
+
+
+
 </script>
   
 <style scoped>
 .search {
     display: flex;
 }
+
 </style>
   

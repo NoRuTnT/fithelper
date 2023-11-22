@@ -7,10 +7,10 @@
                 <label for="title">제목 : </label>
                 <input type="text" id="title" v-model="board.title">
             </div>
-            <div>
+            <!-- <div>
                 <label for="writer">쓰니 : </label>
                 <input type="text" id="writer" v-model="board.userId">
-            </div>
+            </div> -->
             <div>
                 <label for="content">내용 : </label>
                 <textarea id="content" cols="30" rows="10" v-model="board.content"></textarea>
@@ -25,10 +25,11 @@
 <script setup>
 import { ref } from "vue";
 import { useBoardStore } from "@/stores/board";
+import { useAuthStore } from '@/stores/auth';
 
+const authStore = useAuthStore();
 const store = useBoardStore()
 const board = ref({
-    // boardId: '',
     userId: '',
     title: '',
     content: '',
@@ -36,6 +37,8 @@ const board = ref({
 
 const createBoard = function () {
     console.log(board.value);
+    authStore.updateUserIdFromToken(); // 필수
+    board.value.userId = authStore.userId;
     store.createBoard(board.value)
 }
 </script>

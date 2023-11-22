@@ -1,6 +1,22 @@
 <template>
   <div>
-    <div id="map"></div>
+    <div class="container">
+      <div id="map"></div>
+      <div class="gym-list">
+      <ul>
+        <li>Detail</li>
+        <li>name</li>
+        <li>category</li>
+        <li>status</li>
+        <li>price</li>
+        <li>likeCount</li>
+        <li>description</li>
+        <li>regDate</li>
+        <li><button>reserve하기</button></li>
+        
+      </ul>
+    </div>
+    </div>
     <button @click="initMap">내위치</button>
     <button @click="displayMarker(myMarkerPosition)">즐겨찾기 마커 표시</button>
     <button @click="displayMarker([])">즐겨찾기 마커 해제</button>
@@ -352,11 +368,33 @@ function removeAllChildNods(el) {
 }
 
 //////////////////////////////////////////////
+import { useUserReserve } from "@/stores/userReserve";
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
+const userReserveStore = useUserReserve();
+
+const userReserve = ref({
+  reserveId: '',
+  userId: '',
+  gymId: '',
+  reserveTime: '',
+  meetingTime: '',
+})
+
+const reserveGym = function(){
+  authStore.updateUserIdFromToken(); // 필수
+  userReserve.value.userId = authStore.userId;
+  userReserveStore.createUserReserve(userReserve.value);
+}
 </script>
 
 <style scoped>
 #map {
   width: 500px;
   height: 400px;
+}
+.container{
+  display: flex;
 }
 </style>
