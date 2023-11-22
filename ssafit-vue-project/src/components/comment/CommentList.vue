@@ -56,7 +56,7 @@ const comment = ref({
 })
 
 const createComment = function () {
-    store.createComment(comment.value)
+    store.createComment(comment.value, route.params.id)
 }
 const deleteComment = function(UID){
     const userInfo = ref({});

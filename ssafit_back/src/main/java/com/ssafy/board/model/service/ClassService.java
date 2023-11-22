@@ -14,5 +14,9 @@ public interface ClassService {
 	void modifyClass(Class c);
 	/**트레이너가 방을 삭제. participate테이블에 대한 delete도 동시에 발생한다.*/
 	void removeClass(int classId);
+	/**트레이너가 자신이 생성한 방 리스트를 확인*/
+	List<Class> selectTrainerClassList(int trainerId);
+	/**user가 자신이 가입한 방 리스트를 확인*/
+	List<Class> selectUserClassList(int userId);
 
 }

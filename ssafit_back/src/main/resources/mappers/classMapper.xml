@@ -7,7 +7,7 @@
 	<!-- 개설된 전체 방 list를 보여줌 -->
 	<select id="selectAll" resultType="Class">
 		select c.classId classId, ca.category category, i.name name,
-		i.detail detail, i.cost cost, i.time time
+		i.cost cost, i.time time
 		from class c 
 		INNER JOIN class_info i
 		ON c.classId = i.classId
@@ -47,4 +47,30 @@
 		DELETE FROM class
 		WHERE classId = #{classId}
 	</delete>
+	<!-- 트레이너가 자신이 생성한 방 리스트를 확인 -->
+	<select id="selectTrainerClassList" parameterType="int" resultType="Class">
+		select c.classId classId, ca.category category, i.name name,
+		i.cost cost, i.time time
+		from class c 
+		INNER JOIN class_info i
+		ON c.classId = i.classId
+		INNER JOIN category ca
+		ON c.category = ca.category
+		WHERE c.trainer_trainerId = #{trainerId}
+	</select>
+	<!-- user가 자신이 가입한 방 리스트를 확인 -->
+	<select id="selectUserClassList" parameterType="int" resultType="Class">
+		select c.classId classId, ca.category category, i.name name,
+		i.cost cost, i.time time
+		from class c 
+		INNER JOIN class_info i
+		ON c.classId = i.classId
+		INNER JOIN category ca
+		ON c.category = ca.category
+		INNER JOIN participate p
+		ON p.classId = c.classId
+		INNER JOIN user u
+		ON u.userId = p.userId
+		WHERE u.userId = #{userId}
+	</select>
 </mapper>

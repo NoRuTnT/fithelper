@@ -38,6 +38,16 @@ public class ClassServiceImpl implements ClassService{
 		classDao.delete(classId);
 	}
 
+	@Override
+	public List<Class> selectTrainerClassList(int trainerId) {
+		return classDao.selectTrainerClassList(trainerId);
+	}
+
+	@Override
+	public List<Class> selectUserClassList(int userId) {
+		return classDao.selectUserClassList(userId);
+	}
+
 	
 	
 }

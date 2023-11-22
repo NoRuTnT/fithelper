@@ -1,13 +1,61 @@
 <template>
-    <div>
-
+    <div class="regist-box">
+        <!-- <h2>SSAFIT</h2>
+        <div>
+            <ul>
+                <li><input type="text" placeholder="이메일" v-model="trainer.email"></li>
+                <li><input type="text" placeholder="이름" v-model="trainer.name"></li>
+                <li><input type="password" placeholder="비밀번호" v-model="trainer.password"></li>
+                <li><input type="text" placeholder="닉네임" v-model="trainer.nickname"></li>
+                <li><input type="text" placeholder="생일" v-model="trainer.birth"></li>                
+                <li><input type="text" placeholder="핸드폰번호(선택)" v-model="trainer.phonenum"></li>
+                <li><input type="text" placeholder="주소(선택)" v-model="trainer.address"></li>
+                <p>성별(선택)</p>
+                <li>
+                    <label for="male">남성</label>
+                    <input type="radio" id="male" value="1" v-model="trainer.sex">
+                </li>
+                <li>
+                    <label for="female">여성</label>
+                    <input type="radio" id="female" value="2" v-model="trainer.sex">
+                </li>
+                <li><button @click="createtrainer">등록</button></li>
+            </ul>
+                
+        </div> -->
     </div>
 </template>
 
 <script setup>
 
+
+// import { ref } from "vue";
+// import { usetrainerStore } from "@/stores/trainer";
+
+// const store = usetrainerStore();
+// const trainer = ref({
+//     trainerId: '',
+//     email: '',
+//     password: '',
+//     name: '',
+//     nickname: '',
+//     birth: '',    
+//     phonenum: '',
+//     address: '',
+//     cash: '',
+//     sex: '',
+//     role: 'trainer'
+//     // sex: gender.value,
+// })
+
+// const createtrainer = function () {
+//     console.log(trainer);
+//     store.createtrainer(trainer.value)
+// }
 </script>
 
 <style scoped>
-
+li{
+    list-style: none;
+}
 </style>
