@@ -39,5 +39,10 @@ public interface UserService {
 	boolean isEmailUnique(Integer id, String email);
 
 	User findUser(String email);
+
+	void chargeMoney(int userId, int money);
+
+	void useMoney(int userId, int money);
+
 	
 }

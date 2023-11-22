@@ -1,5 +1,6 @@
 package com.ssafy.board.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Comment;
@@ -73,6 +75,20 @@ public class UserRestController {
 		userService.modifyUser(user);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PutMapping("update/charge") 
+	public ResponseEntity<Void> charge(@RequestParam("userId") int userId, 
+	                                   @RequestParam("money") int money) {
+	    userService.chargeMoney(userId, money);		
+	    return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PutMapping("update/use") 
+	public ResponseEntity<Void> use(@RequestParam("userId") int userId, 
+	                                @RequestParam("money") int money) {
+	    userService.useMoney(userId, money);		
+	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	
