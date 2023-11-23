@@ -10,12 +10,8 @@
                 <th>등록일</th>
             </tr>
             <tr v-for="(board, index) in store.boardList" :key="board.boardId">
-<<<<<<< HEAD
 
                 <td>{{ index + 1 }}</td>
-=======
-                <td>{{ index+1 }}</td>
->>>>>>> 4f4b88282caf4511a777d13908771d18c579a322
                 <td>
                     <RouterLink :to="`/board/detail/${board.boardId}`">{{ board.title }}</RouterLink>
                 </td>
@@ -44,21 +40,14 @@ onMounted(() => {
 })
 
 // import { useRoute, useRouter } from 'vue-router';
-<<<<<<< HEAD
-import router from '@/router';
-const writeBoard = function () {
-    router.push({ name: 'boardCreate' })
-=======
 
 const writeBoard = function(){
     router.push({name: 'boardCreate'})
->>>>>>> 4f4b88282caf4511a777d13908771d18c579a322
 }
 
 </script>
 
 <style scoped>
-<<<<<<< HEAD
 .buttons {
     display: flex;
     justify-content: center;
@@ -86,13 +75,4 @@ a{
     text-decoration: none;
     color: black;
 }
-=======
-.buttons{
-    display: flex;
-    justify-content: center;
-}
-button{
-    margin: 10px;
-}
->>>>>>> 4f4b88282caf4511a777d13908771d18c579a322
 </style>
