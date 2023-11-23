@@ -43,7 +43,8 @@ export const useUserStore = defineStore('user', () => {
       if (response.data) {
         alert("충전완료!");
         authStore.setToken(response.data["access-token"]); // 토큰을 스토어에 저장
-        router.push({ name: 'home' });
+        router.push({ name: 'myPage' });
+        window.location.reload();
       } else {
         alert("충전 실패");
         console.error("충전 실패");

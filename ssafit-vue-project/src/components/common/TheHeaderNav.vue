@@ -8,6 +8,7 @@
                 <RouterLink to="/board">자유게시판</RouterLink> |
                 <RouterLink to="/youtube">영상게시판</RouterLink> | 
                 <RouterLink to="/kakao">지도확인</RouterLink> |
+                <RouterLink to="/">PT예약</RouterLink> |
                 <span v-if="role === 'user'">
                   <RouterLink to="/mypage">마이페이지</RouterLink> 
                 </span>     
@@ -20,7 +21,7 @@
                     <a @click="logout" href="#">로그아웃</a>
                 </span>
                 
-                 
+                
             </nav>
         </header>
     </div>

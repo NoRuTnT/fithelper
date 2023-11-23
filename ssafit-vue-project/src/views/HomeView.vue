@@ -1,52 +1,70 @@
 <template>
-    <main>
-    <!-- 메인 이미지 및 텍스트 영역 -->
-    <section class="hero-section">
-      <img src="/11.png" alt="Main Hero Image" class="hero-image">
-      <img src="/22.png" alt="Main Hero Image" class="hero-image">
-      <img src="/33.png" alt="Main Hero Image" class="hero-image">      
-    </section>
-  </main>
-  </template>
-  
-  <script setup>
-  // 세부적인 내용은 카카오뱅크 UI/UX토대로 만들기 + 스타벅스
-  // 로고 | 항목들 |
-  // -------------
-  //       |
-  // -------------
-  // PT 트레이너 홍보
-  </script>
-  
-  <style>
-  /* 폰트, 컬러, 기타 변수 */
-:root {
-  --color-black: #000;
-  --color-white: #fff;
-  --color-grey: #f4f4f4;
+  <div>
+    <img v-for="(img, index) in images" :key="index" :src="img.src" :class="{ visible: img.isVisible }" class="image">
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const initImages = () => {
+  return [
+    { src: '/11.png', isVisible: false },
+    { src: '/22.png', isVisible: false },
+    { src: '/33.png', isVisible: false }
+  ];
+};
+
+const images = ref([
+  { src: '/11.png', isVisible: false },
+  { src: '/22.png', isVisible: false },
+  { src: '/33.png', isVisible: false }
+]);
+
+const checkVisibility = () => {
+  images.value.forEach((img, index) => {
+    const element = document.querySelectorAll('.image')[index];
+    const rect = element.getBoundingClientRect();
+    const isVisible = rect.top < window.innerHeight / 2; // 이미지가 윈도우 높이의 절반 이하일 때만 보이도록 설정
+
+    if (isVisible) {
+      img.isVisible = true;
+    }
+  });
+};
+
+onMounted(() => {
+  images.value = initImages();
+  setTimeout(checkVisibility, 100); // 100ms 후에 함수 실행
+  window.addEventListener('scroll', checkVisibility);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', checkVisibility);
+});
+</script>
+
+<style>
+.image {
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-30px); /* 왼쪽에서 조금 이동하여 시작 */
+  transition: opacity 1.5s ease, transform 1.5s ease, visibility 1.5s ease;
 }
- .hero-section {
-  display: flex; /* 이미지들을 가로로 나란히 배치 */
-  flex-direction: column; /* 아이템들을 세로로 나열 */
-  position: relative;
-  text-align: center;
+
+/* 홀수 번째 이미지는 왼쪽에서, 짝수 번째 이미지는 오른쪽에서 나타남 */
+.image:nth-child(odd) {
+  transform: translateX(-30px);
 }
 
-.hero-image {
-  
-  flex: 0 0 auto; /* 이미지가 가로로 넘칠 경우 스크롤되도록 설정 */
-  width: 100%; /* 화면 너비에 맞게 이미지 너비 설정 */
-  max-width: none; /* 기본 이미지의 최대 너비 제한을 해제 */
-  height: auto; /* 이미지의 높이를 비율에 맞게 자동 조정 */
+.image:nth-child(even) {
+  transform: translateX(30px);
 }
 
-/* 마지막 이미지에는 마진을 주지 않음 */
-.hero-image:last-child {
-  margin-bottom: 0;
+.image.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }
-
-
-
-
-
-  </style>
+</style>
