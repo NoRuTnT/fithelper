@@ -9,8 +9,8 @@
                 <th>조회수</th>
                 <th>등록일</th>
             </tr>
-            <tr v-for="board in store.boardList" :key="board.boardId">
-                <td>{{ board.boardId }}</td>
+            <tr v-for="(board, index) in store.boardList" :key="board.boardId">
+                <td>{{ index+1 }}</td>
                 <td>
                     <RouterLink :to="`/board/detail/${board.boardId}`">{{ board.title }}</RouterLink>
                 </td>
@@ -20,6 +20,9 @@
         </table>
 
         <BoardSearchInput />
+        <div class="buttons">
+            <button @click="writeBoard">글 등록</button>
+        </div>
     </div>
 </template>
 
@@ -27,12 +30,27 @@
 import { useBoardStore } from "@/stores/board";
 import { onMounted } from "vue";
 import BoardSearchInput from "./BoardSearchInput.vue";
+import router from '@/router';
 const store = useBoardStore()
 
 onMounted(() => {
     store.getBoardList()
 })
 
+// import { useRoute, useRouter } from 'vue-router';
+
+const writeBoard = function(){
+    router.push({name: 'boardCreate'})
+}
+
 </script>
 
-<style scoped></style>
+<style scoped>
+.buttons{
+    display: flex;
+    justify-content: center;
+}
+button{
+    margin: 10px;
+}
+</style>

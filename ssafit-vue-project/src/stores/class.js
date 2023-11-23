@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import http from '@/api/http' // http 인스턴스를 임포트합니다.
 
-export const useBoardStore = defineStore('class', () => {
+export const useClassStore = defineStore('class', () => {
   const classList = ref([])
 
   const usergetClassList = function (userId) {
@@ -54,5 +54,5 @@ export const useBoardStore = defineStore('class', () => {
 
   
 
-  return { usergetClassList,trainergetClassList, Class, getClass, createClass, updateClass, deleteClass }
+  return { usergetClassList,trainergetClassList, Class, getClass, createClass, updateClass, deleteClass,classList }
 })

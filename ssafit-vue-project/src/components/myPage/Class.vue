@@ -3,16 +3,37 @@
         
         <div class="card-body">
             <span class="title">참여중인 수업</span>
-            <div class="description">                
-                
-            </div>
-            
-        <button class="btn-more">상세 보기</button>
+            <div class="description" v-for="classItem in store.classList" :key="classItem.classId  ">                
+              <div class="class-card">
+                    <h3>{{classItem.name}}</h3>
+                    <p>{{ classItem.category }}</p>                    
+                </div>  
+
+            </div>         
+        
         </div>
     </div>
 </template>
 
 <script setup>
+import { onMounted } from "vue";
+import { useClassStore} from '@/stores/class';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore();
+const router = useRouter();
+const store = useClassStore();
+
+authStore.updateUserIdFromToken();
+onMounted(() => {    
+  store.usergetClassList(authStore.userId)
+  console.log(store.value.classList);
+})
+
+const goToClassDetail = (classId) => {
+    router.push({ name: 'ClassNameDetailView', params: { classId } });
+};
 
 </script>
 

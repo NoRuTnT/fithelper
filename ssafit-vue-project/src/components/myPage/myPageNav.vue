@@ -8,7 +8,7 @@
                 <li><RouterLink to="/myPage">메인</RouterLink></li>
                 <li><RouterLink to="/myPage/class">클래스</RouterLink></li>
                 <li><RouterLink to="/myPage/chatroom">1대1채팅</RouterLink></li>
-                <li><RouterLink to="/">미구현입니다.</RouterLink></li>
+                <li><RouterLink to="/">정보수정</RouterLink></li>
             </ul>
         </nav>
     </div>
@@ -23,6 +23,9 @@ import { RouterLink } from 'vue-router';
 
 
 nav ul {
+    font-family: Arial, sans-serif;
+  font-weight: bold; /* 모든 텍스트를 굵게 만듦 */
+  align-items: center; /* 항목들을 세로 중앙에 정렬 */
     list-style: none; /* 기본 목록 스타일 제거 */
     padding: 0; /* 기본 패딩 제거 */
     margin: 0; /* 기본 마진 제거 */

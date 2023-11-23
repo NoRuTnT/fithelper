@@ -81,5 +81,19 @@ authStore.updateTotalcashFromToken();
   gap: 1rem; /* 요소 사이의 간격 설정 */
   
 }
+button {
+  padding: 0.6rem 1.2rem;
+  background: rgb(240, 204, 128);
+  border: 2px solid var(--color-white);
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px; /* 원하는 둥글기 정도로 조정 */
+}
 
+button:hover {
+  background-color: lightcoral;
+  color: var(--color-black);
+}
 </style>

@@ -20,7 +20,7 @@
 <style scoped>
 footer {
     height: 100px;
-    background-color: pink;
+    background-color: rgb(78, 78, 78);
 }
 ul{
     display: flex;
