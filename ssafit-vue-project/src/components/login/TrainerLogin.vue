@@ -3,7 +3,7 @@
         <div class="login">
             <div class="login-box">
                 <h2>SSAFIT (Trainer 회원)</h2>
-                <input type="text" placeholder="아이디" v-model="trainer.email"><br>
+                <input type="text" placeholder="이메일" v-model="trainer.email"><br>
                 <input type="password" placeholder="비밀번호" v-model="trainer.password">
                 <button @click="loginTrainer">로그인</button>
                 <div>
@@ -38,55 +38,63 @@ const loginTrainer = function () {
 </script>
 
 <style scoped>
-* {
-    margin: 0;
-    padding: 0;
-    border: none;
-}
-
 .login {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-body {
-    font-size: 14px;
-    font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
 }
 
 .login-box {
-    width: 400px;
-    height: 400px;
-    padding: 40px;
-    box-sizing: border-box;
-    border: 3px solid pink;
-    border-radius: 20px;
-
+  width: 350px; /* 너비를 약간 늘려서 링크들이 한 줄에 나오도록 함 */
+  padding: 2rem;
+  background-color: #fff;
+  border: 3px solid #333; /* 테두리를 더 선명하게 */
+  border-radius: 10px;
+  text-align: center;
 }
 
-.login-box>h2 {
-    color: pink;
-    font-size: 30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.login-box h2 {
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-#login-form>input {
-    width: 100%;
-    height: 30px;
-    border: 1px solid gainsboro;
-    border-radius: 3px;
+.login-box input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
 }
 
-#login-form>button {
-    background-color: pink;
-    color: white;
-
+.login-box button {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-a {
-    text-decoration: none;
-    color: plum;
-    font-family: sans-serif;
-}</style>
+.login-box button:hover {
+  background-color: #555;
+}
+
+.login-box div {
+  white-space: nowrap; /* 링크들이 줄바꿈되지 않도록 설정 */
+}
+
+.login-box a {
+  color: #333;
+  margin: 0 10px; /* 링크 사이의 간격을 늘림 */
+  text-decoration: none;
+}
+
+.login-box a:hover {
+  text-decoration: underline;
+}
+</style>
