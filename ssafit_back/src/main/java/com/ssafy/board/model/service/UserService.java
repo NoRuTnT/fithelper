@@ -40,9 +40,9 @@ public interface UserService {
 
 	User findUser(String email);
 
-	void chargeMoney(int userId, int money);
 
-	void useMoney(int userId, int money);
+	ResponseEntity<UserDTO> chargeMoney(Map<String, String> credentials);
 
+	ResponseEntity<UserDTO> useMoney(Map<String, String> body);
 	
 }

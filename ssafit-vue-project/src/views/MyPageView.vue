@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <MyPageNav class="nav"/>        
-        <RouterView class="content"/>
+    <div class="layout-container">
+        <MyPageNav class="sidebar"/>        
+        <RouterView class="main-content"/>
     </div>
 </template>
 
@@ -22,12 +22,23 @@ emit('hideNav');
 </script>
 
 <style scoped>
-.container {
+.layout-container {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
 }
-.content {
-  flex: 1;
-  /* 메인 컨텐츠 영역 스타일 */
+.sidebar {
+    height: 100vh; /* 전체 뷰포트 높이를 사용 */
+    width: 250px; /* 사이드바의 너비를 고정 */
+    background-color: #f0f2f5; /* 사이드바의 배경색 */
+    position: fixed; /* 사이드바를 화면에 고정 */
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
+.main-content {
+    
+    margin-left: 250px;
+  flex-grow: 1; /* 남은 공간을 모두 채우도록 설정 */
+  /* 메인 컨텐츠에 필요한 추가 스타일 */
 }
 </style>

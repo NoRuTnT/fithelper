@@ -3,13 +3,13 @@
         <div class="login">
             <div class="login-box">
                 <h2>SSAFIT (Trainer 회원)</h2>
-                <input type="text" placeholder="아이디" v-model="user.id"><br>
-                <input type="password" placeholder="비밀번호" v-model="user.password">
-                <button @click="loginUser">로그인</button>
+                <input type="text" placeholder="아이디" v-model="trainer.email"><br>
+                <input type="password" placeholder="비밀번호" v-model="trainer.password">
+                <button @click="loginTrainer">로그인</button>
                 <div>
                     <a href="#">비밀번호 찾기</a> |
                     <a href="#">아이디 찾기</a> |
-                    <RouterLink to="/registUser">회원가입</RouterLink>
+                    <RouterLink to="/registTrainer">회원가입</RouterLink>
                 </div>
             </div>
         </div>
@@ -18,22 +18,22 @@
 
 <script setup>
 import { ref } from "vue";
-import { useUserStore } from "@/stores/user";
+import { useTrainerStore } from "@/stores/trainer";
 
-const store = useUserStore();
+const store = useTrainerStore();
 
 // 로그인하는 사용자 타입을 결정하는 변수(user/trainer/gymowner)
-const userType = ref(0);
+const trainerType = ref(0);
 
-const user = ref({
-    id: '',
+const trainer = ref({
+    email: '',
     password: ''
 
 })
 
-const loginUser = function () {
-    console.log(user);
-    store.loginUser(user.value)
+const loginTrainer = function () {
+    console.log(trainer);
+    store.loginTrainer(trainer.value)
 }
 </script>
 

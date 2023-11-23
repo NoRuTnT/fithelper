@@ -51,6 +51,14 @@ public class JwtUserDetails implements UserDetails {
     public int getUserId() {
     	return user.getUserId();
     }
+    
+    public int getCash(){
+    	return user.getCash();
+    }
+    
+    public int getTotalcash() {
+    	return user.getTotalcash();
+    }
 
 
     @Override

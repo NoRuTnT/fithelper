@@ -1,6 +1,5 @@
 package com.ssafy.board.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.dto.Comment;
+import com.ssafy.board.model.dto.Money;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.UserDTO;
 import com.ssafy.board.model.service.UserService;
@@ -33,6 +34,7 @@ import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api-user")
 @Api(tags="사용자 컨트롤러")
 public class UserRestController {
@@ -77,18 +79,52 @@ public class UserRestController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PutMapping("update/charge") 
-	public ResponseEntity<Void> charge(@RequestParam("userId") int userId, 
-	                                   @RequestParam("money") int money) {
-	    userService.chargeMoney(userId, money);		
-	    return new ResponseEntity<>(HttpStatus.OK);
+	@PutMapping("charge") 
+	public ResponseEntity<Map<String, Object>> charge(@RequestBody Money charge)throws IllegalAccessException {
+		Map<String, Object> result = new HashMap<>();
+	    Map<String, String> credentials = new HashMap<>();
+	    credentials.put("email", charge.getEmail());
+	    credentials.put("cash", charge.getMoney());
+	    System.out.println(charge.getEmail());
+	    System.out.println(charge.getMoney());
+	    
+	    ResponseEntity<UserDTO> response = userService.chargeMoney(credentials); // 수정된 메소드 호출
+					
+	    if (response.getStatusCode() == HttpStatus.OK) {
+	    	UserDTO loginUser = response.getBody();
+	        // UserServiceImpl에서 생성된 토큰을 사용
+	        String token = loginUser.getToken(); 
+	        System.out.println("Sending JWT Token to Client: " + token);
+	        result.put("access-token", token);
+	        result.put("message", SUCCESS);
+	        return new ResponseEntity<>(result, HttpStatus.OK);
+	    } else {
+	        result.put("message", FAIL);
+	        return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
+	    }
 	}
 
-	@PutMapping("update/use") 
-	public ResponseEntity<Void> use(@RequestParam("userId") int userId, 
-	                                @RequestParam("money") int money) {
-	    userService.useMoney(userId, money);		
-	    return new ResponseEntity<>(HttpStatus.OK);
+	@PutMapping("use") 
+	public ResponseEntity<Map<String, Object>> use(@RequestBody Money charge)throws IllegalAccessException {
+		Map<String, Object> result = new HashMap<>();
+	    Map<String, String> credentials = new HashMap<>();
+	    credentials.put("email", charge.getEmail());
+	    credentials.put("cash", charge.getMoney());
+	    
+	    ResponseEntity<UserDTO> response = userService.chargeMoney(credentials); // 수정된 메소드 호출
+					
+	    if (response.getStatusCode() == HttpStatus.OK) {
+	    	UserDTO loginUser = response.getBody();
+	        // UserServiceImpl에서 생성된 토큰을 사용
+	        String token = loginUser.getToken(); 
+	        System.out.println("Sending JWT Token to Client: " + token);
+	        result.put("access-token", token);
+	        result.put("message", SUCCESS);
+	        return new ResponseEntity<>(result, HttpStatus.OK);
+	    } else {
+	        result.put("message", FAIL);
+	        return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
+	    }
 	}
 	
 	

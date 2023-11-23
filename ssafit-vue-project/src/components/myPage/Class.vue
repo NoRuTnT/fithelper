@@ -1,6 +1,14 @@
 <template>
-    <div>
-        <p>클래스 내용을 보여줍니다.</p>
+    <div class="cards-container">
+        
+        <div class="card-body">
+            <span class="title">참여중인 수업</span>
+            <div class="description">                
+                
+            </div>
+            
+        <button class="btn-more">상세 보기</button>
+        </div>
     </div>
 </template>
 
@@ -9,5 +17,22 @@
 </script>
 
 <style scoped>
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.description {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+  padding: 1rem;
+}
 
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
 </style>

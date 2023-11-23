@@ -23,6 +23,7 @@ import RegistTrainer from '@/components/User/RegistTrainer.vue'
 import ClassList from '@/components/myPage/Class.vue' 
 import Chatroom from '@/components/myPage/Chatroom.vue'
 import Main from '@/components/myPage/Main.vue'
+import Charge from '@/components/myPage/Charge.vue'
 
 
 import KakaoMap from '@/components/kakao/KakaoMap.vue'
@@ -49,6 +50,11 @@ const router = createRouter({
           path: "class",
           name: "classList",
           component: ClassList
+        },
+        {
+          path: "charge",
+          name: "charge",
+          component: Charge
         },
         {
           path: "chatroom",

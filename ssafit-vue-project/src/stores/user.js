@@ -36,6 +36,40 @@ export const useUserStore = defineStore('user', () => {
     }
   };
 
+  // 캐시충전
+  const charge = async (charge) => {
+    try {
+      const response = await http.put('/api-user/charge', charge);
+      if (response.data) {
+        alert("충전완료!");
+        authStore.setToken(response.data["access-token"]); // 토큰을 스토어에 저장
+        router.push({ name: 'home' });
+      } else {
+        alert("충전 실패");
+        console.error("충전 실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 캐시소비
+  const use = async (useAmount) => {
+    try {
+      const response = await http.put('/api-user/use', useAmount);
+      if (response.data) {
+        alert("예약완료!");
+        authStore.setToken(response.data["access-token"]); // 토큰을 스토어에 저장
+        router.push({ name: 'home' });
+      } else {
+        alert("예약 실패");
+        console.error("예약 실패");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // email로 User 객체에 대한 정보를 받아온다.
   const user = ref({});
   const getUser = function(email){
@@ -45,5 +79,5 @@ export const useUserStore = defineStore('user', () => {
     })
   }
   
-  return { createUser, loginUser, user, getUser };
+  return { createUser, loginUser, user, getUser,charge,use};
 });

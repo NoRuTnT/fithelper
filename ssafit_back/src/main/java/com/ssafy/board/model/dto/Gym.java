@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(description = "장소 정보")
 public class Gym {
 	private int gymId;
+	private int gymownerId;
 	private String name;
 	private String category;
 	private String status;
@@ -15,10 +16,11 @@ public class Gym {
 	public Gym() {
 	}	
 
-	public Gym(int gymId, String name, String category, String status, int price, String description,
+	public Gym(int gymId, int gymownerId, String name, String category, String status, int price, String description,
 			int regDate) {
 		super();
 		this.gymId = gymId;
+		this.gymownerId = gymownerId;
 		this.name = name;
 		this.category = category;
 		this.status = status;
@@ -37,6 +39,17 @@ public class Gym {
 		this.gymId = gymId;
 	}
 
+
+
+	public int getGymownerId() {
+		return gymownerId;
+	}
+
+
+
+	public void setGymownerId(int gymownerId) {
+		this.gymownerId = gymownerId;
+	}
 
 
 
@@ -112,11 +125,10 @@ public class Gym {
 
 	@Override
 	public String toString() {
-		return "Gym [gymId=" + gymId + ", name=" + name + ", category=" + category + ", status=" + status + ", price="
-				+ price + ", description=" + description + ", regDate=" + regDate + "]";
+		return "Gym [gymId=" + gymId + ", gymownerId=" + gymownerId + ", name=" + name + ", category=" + category
+				+ ", status=" + status + ", price=" + price + ", description=" + description + ", regDate=" + regDate
+				+ "]";
 	}
-
-	
 
 
 

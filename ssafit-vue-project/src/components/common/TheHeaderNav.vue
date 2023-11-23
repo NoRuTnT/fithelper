@@ -2,13 +2,13 @@
     <div>
         <header>
             <nav>
-                <span>SSAFIT</span>
+                <img src="@/assets/logo.png" width="200" height="100">
                 <!-- board 관련 link를 추후에 동적 바인딩으로 (:to) 바꿔줘야 됨-->
                 <RouterLink to="/">Home</RouterLink> |
                 <RouterLink to="/board">자유게시판</RouterLink> |
                 <RouterLink to="/youtube">영상게시판</RouterLink> | 
                 <RouterLink to="/kakao">지도확인</RouterLink> |
-                <span v-if="authStore.role === 'user'">
+                <span v-if="role === 'user'">
                   <RouterLink to="/mypage">마이페이지</RouterLink> 
                 </span>               
                 
@@ -32,6 +32,7 @@ import { useRouter } from 'vue-router';
 const loginUsernickname = ref(null);
 const router = useRouter();
 const token = ref(sessionStorage.getItem('access-token')); // 토큰을 반응형 데이터로 관리 
+const role = ref(null);
 const authStore = useAuthStore();
 
 
@@ -53,10 +54,12 @@ watch(() => authStore.token, (newToken) => {
       const decodedPayload = b64_to_utf8(payload);
       console.log('페이로드:', decodedPayload);
       loginUsernickname.value = JSON.parse(decodedPayload).nickname || null;
+      role.value = JSON.parse(decodedPayload).role[0] || null;
     }
   } else {
     // 토큰이 없으면 사용자 닉네임 비움
     loginUsernickname.value = null;
+    role.value = null;
   }
 }, { immediate: true }); // 컴포넌트 마운트 시 즉시 실행
 

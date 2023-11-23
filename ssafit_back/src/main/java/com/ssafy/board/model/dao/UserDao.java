@@ -19,14 +19,13 @@ public interface UserDao {
 	public void updateUser(User user);
   
 	User findByEmail(String email);
+	
+	public void chargeCash(@Param("userId")int userId, @Param("cash")int cash);
+	
+	public void useCash(@Param("userId")int userId, @Param("cash")int cash);
   
 	/**선택한 사람이 팔로우 하는 모든 사람을 보여줌*/
 	public List<User> selectAllFollowing(int userId);
 	/**선택한 사람을 팔로우 하는 모든 사람을 보여줌*/
 	public List<User> selectAllFollower(int userId);
-	
-	public void chargeCash(@Param("follower")int userId, @Param("following")int money);
-	
-	public void useCash(@Param("follower")int userId, @Param("following")int money);
-	
 }
