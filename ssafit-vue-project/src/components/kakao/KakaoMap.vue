@@ -5,12 +5,11 @@
       <div class="gym-list">
         <h2>현재 선택한 매장 예약</h2>
       <ul>
-        <li>name : {{gym.name}}</li>
-        <li>description : {{ gym.description }}</li>
-        <li>category : {{ gym.category }}</li>
-        <li>status : {{ gym.status }}</li>
-        <li>price : {{ gym.price }}</li>
-        <li>meetTime
+        <li>장소이름 : {{gym.name}}</li>
+        <li>설명 : {{ gym.description }}</li>
+        <li>운영상태 : {{ gym.status }}</li>
+        <li>예약비 : {{ gym.price }}</li>
+        <li>예약시간
           <input type="datetime-local" v-model="gym.meetTime" />
         </li>
         <li><button @click="reserveGym">reserve하기</button></li>
@@ -24,7 +23,7 @@
     <div id="menu_wrap" class="bg_white">
       <div class="option">
         <div>
-          키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15" @keyup.enter="searchPlaces">
+          키워드 : <input type="text" value="역삼 헬스장" id="keyword" size="15" @keyup.enter="searchPlaces">
           <button @click="searchPlaces">검색하기</button>
           <p id="result"></p>
           <h1>현재위치로부터 선택한 지점사이의 거리: {{ minLength }}m</h1>
@@ -41,6 +40,8 @@
 
 <script setup>
 import { onMounted, ref, toRaw } from 'vue';
+import { useGymStore } from "@/stores/gym";
+import { useAuthStore } from '@/stores/auth';
 let map = null;
 let ps = null; // mount 될 때 등록
 let myCenter = null;
@@ -369,8 +370,7 @@ function removeAllChildNods(el) {
 }
 
 //////////////////////////////////////////////
-import { useGymStore } from "@/stores/gym";
-import { useAuthStore } from '@/stores/auth';
+
 
 const authStore = useAuthStore();
 const gymStore = useGymStore();

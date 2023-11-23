@@ -1,8 +1,9 @@
 <template>
-    <div class="container">    
-        <p>내가 예약한 목록을 아래에 보여줌(주의! 발표 직전에는 지워야 되는 구문들)</p>
+
+    <div class="container">
         <MyPageNav class="sidebar"/>        
-        <RouterView class="main-content"/>
+        <RouterView class="content"/>
+        <p>예약 목록</p>
         <table>
             <tr>
                 <th>인덱스번호</th>
@@ -30,8 +31,7 @@
             </tr>
         </table>
 
-        <div class="layout-container">
-        </div>
+
     </div>
 </template>
 

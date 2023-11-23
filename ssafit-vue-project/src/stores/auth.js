@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 const b64_to_utf8 = function ( str ) {
   return decodeURIComponent(escape(window.atob( str )));
-
 }
 
 export const useAuthStore = defineStore('auth', {

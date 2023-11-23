@@ -11,7 +11,8 @@
             </tr>
             <tr v-for="(board, index) in store.boardList" :key="board.boardId">
 
-                <td>{{ index+1 }}</td>
+
+                <td>{{ index + 1 }}</td>
                 <td>
                     <RouterLink :to="`/board/detail/${board.boardId}`">{{ board.title }}</RouterLink>
                 </td>
@@ -40,9 +41,10 @@ onMounted(() => {
 })
 
 // import { useRoute, useRouter } from 'vue-router';
-const writeBoard = function () {
-    router.push({ name: 'boardCreate' })
 
+
+const writeBoard = function(){
+    router.push({name: 'boardCreate'})
 }
 
 </script>

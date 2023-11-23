@@ -19,10 +19,8 @@
                     <span>{{ loginUsernickname }}님 환영합니다. </span>
                     <a @click="logout" href="#">로그아웃</a>
                 </span>
-                <!-- 이후에 v-if로 선택적 렌더링으로 표시할 것-->
-                <span>
-                  <RouterLink to="/myPage">마이페이지</RouterLink>
-                </span>                
+                
+                 
             </nav>
         </header>
     </div>
