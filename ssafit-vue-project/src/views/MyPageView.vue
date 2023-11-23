@@ -1,41 +1,37 @@
 <template>
-<<<<<<< HEAD
-    <div class="container">
-        <MyPageNav class="nav"/>        
-        <RouterView class="content"/>
+    <div class="container">    
         <p>내가 예약한 목록을 아래에 보여줌(주의! 발표 직전에는 지워야 되는 구문들)</p>
-        
+        <MyPageNav class="sidebar"/>        
+        <RouterView class="main-content"/>
         <table>
             <tr>
                 <th>인덱스번호</th>
                 <th>name</th>
-                <th>category</th>
                 <th>status</th>
                 <th>price</th>
                 <th>description</th>
                 <th>reserveTime</th>
                 <th>meetTime</th>
+                <th>delete</th>
             </tr>
             <tr v-for="(gym, index) in store.gymList" :key="gym.gymId">
 
                 <td>{{ index + 1 }}</td>
                 <td>
-                    <RouterLink :to="`/gym/detail/${gym.gymId}`">{{ gym.name }}</RouterLink>
+                    <!-- <RouterLink :to="`/gym/detail/${gym.gymId}`">{{ gym.name }}</RouterLink> -->
+                    {{ gym.name }}
                 </td>
-                <td>{{ gym.category }}</td>
                 <td>{{ gym.status }}</td>
                 <td>{{ gym.price }}</td>
                 <td>{{ gym.description }}</td>
                 <td>{{ gym.reserveTime }}</td>
-                <td>{{ gym.meetTime }}</td>
+                <td>{{ convert(gym.meetTime) }}</td>
+                <td><button @click="deleteGymReserve(gym.gymId)">지우기</button></td>
             </tr>
         </table>
 
-=======
-    <div class="layout-container">
-        <MyPageNav class="sidebar"/>        
-        <RouterView class="main-content"/>
->>>>>>> 4f4b88282caf4511a777d13908771d18c579a322
+        <div class="layout-container">
+        </div>
     </div>
 </template>
 
@@ -54,25 +50,29 @@ const authStore = useAuthStore();
 
 const store = useGymStore()
 
+
 onMounted(() => {
     authStore.updateUserIdFromToken();
     store.getGymList(authStore.userId);
+    
 })
 
+// 타임스탬프를 날짜 형태로 변환해주는
+function convert(timeStamp){
+  let arg = timeStamp;
+  return new Date(arg);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { useRouter } from 'vue-router';
+const router = useRouter();
+// 예약 없애기
+function deleteGymReserve(gymId){
+  let q = confirm('예약을 취소하시겠습니까?');
+  if(q){
+    store.deleteGym(gymId);
+    router.go();
+  }
+}
 
 
 // 마이페이지에서는 가독성을 위해 nav 컴포넌트를 보여주지 않습니다.
