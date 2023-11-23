@@ -18,7 +18,7 @@
                 </td>
                 <td>{{ commentItem.content }}</td>
                 <td>{{ commentItem.regDate }}</td>
-                <td><button @click="deleteComment(commentItem.commentId, commentItem.userId)">글 삭제하기</button></td>
+                <td><button @click="deleteComment(commentItem.commentId, commentItem.userId)">삭제</button></td>
             </tr>
         </table>
         <p>댓글 내용</p>
@@ -95,9 +95,18 @@ td{
     height: 40px;
     width: 100px;
 }
-button{
-    background-color: pink;
-    border: none;
+button {
+    background-color: white; /* 배경색을 흰색으로 설정 */
+    color: red; /* 글씨 색상을 빨간색으로 설정 */
+    border: 1px solid black; /* 테두리를 검은색으로 설정 */
     margin: 10px;
+    padding: 5px 10px; /* 버튼에 패딩을 추가하여 크기를 조정 */
+    border-radius: 5px; /* 버튼의 모서리를 약간 둥글게 */
+    cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+    transition: background-color 0.3s; /* 배경색 변경에 애니메이션 효과 적용 */
+}
+
+button:hover {
+    background-color: #ffcccc; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
 }
 </style>

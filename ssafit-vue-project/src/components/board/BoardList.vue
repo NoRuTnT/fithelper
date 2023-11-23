@@ -48,31 +48,62 @@ const writeBoard = function(){
 </script>
 
 <style scoped>
+div {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+th {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 .buttons {
     display: flex;
     justify-content: center;
 }
 
 button {
-    margin: 10px;
+    background-color: slateblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
+button:hover {
+    background-color: darkslateblue;
+}
 h4 {
     color: slateblue;
-    font-size: 25px;
-}
-td{
-    border-bottom: 1px solid gray;
-}
-td:nth-child(2){
-    width: 50%;
-}
-.list-content {
-    border: 1px solid black;
-    border-radius: 2px;
-}
-a{
-    text-decoration: none;
-    color: black;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 </style>

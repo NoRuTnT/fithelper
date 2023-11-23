@@ -1,18 +1,29 @@
 <template>
     <div>
-        <h4>게시글 상세</h4>
-        <hr>
-        <div>{{ store.board.title }}</div>
-        <div>{{ store.board.writer }}</div>
-        <div>{{ store.board.regDate }}</div>
-        <div>{{ store.board.viewCnt }}</div>
-        <div>{{ store.board.content }}</div>
-        <hr>
-        <button @click="likeCntUp">좋아요</button>
-        <p>좋아요 개수는 {{ store.board.likeCount }}개 입니다!</p>
+        <div class="board-header">
+            <div>{{ store.board.title }}</div>
+            <div>{{ store.board.writer }}</div>
+            <div>{{ store.board.regDate }}</div>
+        </div>
+        
+        <div class="board-content">
+            <h4>게시글 상세</h4>
+            <hr>
+            <p>{{ store.board.content }}</p>
+            <p>조회수: {{ store.board.viewCnt }}</p>
+            <hr>
+        </div>
 
-        <button @click="deleteBoard">삭제</button>
-        <button @click="updateBoard">수정</button>
+        <div class="like-section">
+            <button class="like" @click="likeCntUp">
+                <span>{{ store.board.likeCount }}</span> 좋아요
+            </button>
+        </div>
+
+        <div class="action-buttons">
+            <button @click="deleteBoard">삭제</button>
+            <button @click="updateBoard">수정</button>
+        </div>
         
         <CommentList class="comment-list"/>
     </div>
@@ -73,5 +84,66 @@ const likeCntUp = function(){
 </script>
 
 <style scoped>
+div {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+.board-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.board-header div {
+    color: #333;
+}
+.board-content {
+    padding: 20px;
+}
+button.like {
+    background-color: white;
+    border: 2px solid red;
+    color: red;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+
+button.like:hover {
+    background-color: #ffcccc;
+}
+
+button.like span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.action-buttons button {
+    margin-left: 10px;
+    background-color: slateblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.like-section {
+    text-align: center;
+    margin: 20px 0;
+}
 </style>

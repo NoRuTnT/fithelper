@@ -12,7 +12,7 @@
         <li>예약시간
           <input type="datetime-local" v-model="gym.meetTime" />
         </li>
-        <li><button @click="reserveGym">reserve하기</button></li>
+        <li><button @click="reserveGym">예약하기</button></li>
         
       </ul>
     </div>
@@ -265,7 +265,7 @@ function getListItem(index, places) {
     } else {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
-                 
+
       itemStr += '  <span class="tel">' + places.phone  + '</span>' +
                 '</div>';           
 
@@ -389,12 +389,21 @@ const gym = ref({
   meetTime: ''
 })
 
-const reserveGym = function(){
-  authStore.updateUserIdFromToken(); // 필수
-  gym.value.userId = authStore.userId; // 예약한 사람의 사용자 번호 입력
-  gymStore.createGym(gym.value); // 객체를 backend로 전달하는 함수 호출
-  alert('저장되었습니다.');
-}
+const reserveGym = async () => {
+    try {
+        authStore.updateUserIdFromToken(); // 사용자 ID 업데이트
+        gym.value.userId = authStore.userId; // 예약자 ID 설정
+        await gymStore.createGym(gym.value); // 예약 시도
+        alert('저장되었습니다.');
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // 401 Unauthorized 에러 처리
+            router.push('/'); // 홈 페이지로 리디렉션
+        } else {
+            alert('예약 중 에러가 발생했습니다.'); // 기타 에러 처리
+        }
+    }
+};
 // 아래부터 db에 gym 관련 내용 추가하고 reserve하는 부분
 // 새로운 검색을 했을 때마다 아래 내용을 실행해야 됨
 function updateGymList(){
@@ -413,14 +422,84 @@ function updateGymList(){
 
 }
 
+
+
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin: 0 auto;
+  padding: 20px;
+}
 #map {
   width: 500px;
   height: 400px;
+  flex: 1; 
 }
-.container{
-  display: flex;
+.gym-list {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.gym-list h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.gym-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.gym-list li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #8e8e8e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px; /* 양쪽 마진 추가 */
+}
+
+button:hover {
+  background-color: #494949;
+}
+#placesList {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    margin: 20px 0;
+}
+
+#placesList li {
+    padding: 10px;
+    border-bottom: 1px solid #9b9b9b; /* 항목 사이의 연한 구분선 */
+}
+#pagination {
+    text-align: center; /* 페이지네이션 버튼을 중앙 정렬 */
+    margin: 20px 0;
+}
+
+#pagination  {
+    display: inline-block;
+    margin: 0 5px; /* 버튼 사이의 간격 */
+    padding: 5px 10px;
+    border: 1px solid #ddd; /* 테두리 */
+    background-color: #f9f9f9; /* 배경색 */
+    color: #333; /* 글자색 */
+    text-decoration: none; /* 밑줄 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+#pagination a:hover {
+    background-color: #e9e9e9; /* 마우스 오버 시 배경색 변경 */
 }
 </style>

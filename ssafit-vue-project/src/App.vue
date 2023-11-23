@@ -1,8 +1,8 @@
 <template>
   <div>
-    <TheHeaderNav id="nav" v-if="!displayNav"/>
-    <RouterView @hide-nav="deleteNav"/>
-    <TheFooterNav id="nav" v-if="!displayNav"/>
+    <TheHeaderNav  v-if="!displayNav" id="header"/>
+    <RouterView @hide-nav="deleteNav" id="body"/>
+    <TheFooterNav id="footer" v-if="!displayNav"/>
   </div> 
 </template>
 
@@ -24,6 +24,14 @@ const deleteNav = function(){
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 500; /* 다른 요소들 위에 헤더가 위치하도록 z-index 설정 */
+  background-color: white; /* 배경색 추가 */
 }
 
 

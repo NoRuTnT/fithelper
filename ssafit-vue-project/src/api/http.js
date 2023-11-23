@@ -54,7 +54,7 @@ http.interceptors.response.use(
           return;
         } else {
           alert('인증 실패: 권한이 없습니다.');
-          
+          router.push('/');
           return Promise.reject(error);
         }
       }
