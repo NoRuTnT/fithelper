@@ -2,7 +2,7 @@
   <div>
     <TheHeaderNav id="nav" v-if="!displayNav"/>
     <RouterView @hide-nav="deleteNav"/>
-    <TheFooterNav/>
+    <TheFooterNav id="nav" v-if="!displayNav"/>
   </div> 
 </template>
 
@@ -20,9 +20,11 @@ const deleteNav = function(){
 
 </script>
 <style scoped>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+
 </style>

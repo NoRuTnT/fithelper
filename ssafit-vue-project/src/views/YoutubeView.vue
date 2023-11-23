@@ -13,9 +13,6 @@ import YoutubeVideoList from '@/components/youtube/YoutubeVideoList.vue';
 
 </script>
   
-<style scoped>
-h2 {
-    color: pink;
-    font-family: sans-serif;
-}
+<style>
+
 </style>

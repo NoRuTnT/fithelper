@@ -1,4 +1,4 @@
-package com.ssafy.board.model.service;
+	package com.ssafy.board.model.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +43,60 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public ResponseEntity<UserDTO> chargeMoney (@RequestBody Map<String, String> body) {
+		String email = body.get("email");
+	    String amount = body.get("cash");
+	    System.out.println("돈충전이메일:"+ email);
+	    System.out.println("돈충전양:"+ amount);
+	    int cash = Integer.parseInt(amount);
+	    User user = userDao.findByEmail(email);
+	    int userId = user.getUserId(); 
+	    userDao.chargeCash(userId, cash);
+	    
+	    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		   
+	    JwtUserDetails jwtUserDetails = (JwtUserDetails) userDetails; // 캐스팅
+	    
+	    System.out.println("JwtUserDetails - Email: " + jwtUserDetails.getUsername());
+	    System.out.println("JwtUserDetails - Nickname: " + jwtUserDetails.getNickname());
+	    
+	    
+	    UserDTO userDTO = new UserDTO();
+	    
+	    String token = jwtTokenUtil.generateToken(jwtUserDetails);
+	    userDTO.setToken(token); // 토큰 설정
+
+	    return new ResponseEntity<>(userDTO, HttpStatus.OK);	    
+		
+	}
+	
+	@Override
+	public ResponseEntity<UserDTO> useMoney (@RequestBody Map<String, String> body) {
+		String email = body.get("email");
+	    String amount = body.get("chargeAmount");	   
+	    int cash = Integer.parseInt(amount);
+	    User user = userDao.findByEmail(email);
+	    int userId = user.getUserId(); 
+	    userDao.chargeCash(userId, cash);
+	    
+	    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		   
+	    JwtUserDetails jwtUserDetails = (JwtUserDetails) userDetails; // 캐스팅
+	    
+	    System.out.println("JwtUserDetails - Email: " + jwtUserDetails.getUsername());
+	    System.out.println("JwtUserDetails - Nickname: " + jwtUserDetails.getNickname());
+	    
+	    
+	    UserDTO userDTO = new UserDTO();
+	    
+	    String token = jwtTokenUtil.generateToken(jwtUserDetails);
+	    userDTO.setToken(token); // 토큰 설정
+
+	    return new ResponseEntity<>(userDTO, HttpStatus.OK);	    
+		
+	}
+	
+	@Override
 	public ResponseEntity<UserDTO> login(@RequestBody Map<String, String> body) {
 	    String email = body.get("email");
 	    String password = body.get("password");
@@ -71,7 +125,6 @@ public class UserServiceImpl implements UserService {
 	    
 	    UserDTO userDTO = new UserDTO();
 	    
-//	    String token = jwtTokenUtil.generateToken(jwtUserDetails.getUsername(),jwtUserDetails.getNickname());
 	    String token = jwtTokenUtil.generateToken(jwtUserDetails);
 	    userDTO.setToken(token); // 토큰 설정
 
@@ -111,18 +164,7 @@ public class UserServiceImpl implements UserService {
 	public User findUser (String email) {
 		return userDao.findByEmail(email);
 	}
-	
-	@Override
-	public void chargeMoney(int userId, int money) {
-		userDao.chargeCash(userId, money);
-	}
-	
-	@Override
-	public void useMoney(int userId, int money) {
-		userDao.useCash(userId, money);
-	}
-	
-	
+
 	@Override
 	public List<User> getFollowingList(int userId) {
 		return userDao.selectAllFollowing(userId);
@@ -133,10 +175,6 @@ public class UserServiceImpl implements UserService {
 	public List<User> getFollowerList(int userId) {
 		return userDao.selectAllFollower(userId);
 	}
-	
-	
-	
-	
 	
 	@Override
 	public UserDTO save(User user, MultipartFile multipartFile) throws IOException {		  

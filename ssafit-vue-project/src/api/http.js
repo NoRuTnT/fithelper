@@ -15,10 +15,20 @@ const http = axios.create({
 
 http.interceptors.request.use(
   config => {
-    const token = sessionStorage.getItem('access-token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    // 로그인 및 회원가입 요청에 대한 경로를 배열로 정의합니다.
+    const authRoutes = ['/login', '/signup'];
+
+    // 현재 요청의 URL이 로그인 또는 회원가입 요청인지 확인합니다.
+    const isAuthRoute = authRoutes.some(route => config.url.includes(route));
+
+    // 로그인 또는 회원가입 요청이 아닌 경우에만 토큰을 헤더에 추가합니다.
+    if (!isAuthRoute) {
+      const token = sessionStorage.getItem('access-token');
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
     }
+
     return config;
   },
   error => {

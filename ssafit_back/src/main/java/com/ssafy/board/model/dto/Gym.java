@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 public class Gym {
 	private int gymId;
 	private int userId;
+
 	private String name;
 	private String category;
 	private String status;
@@ -48,6 +49,7 @@ public class Gym {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
 
 	public String getName() {
 		return name;
@@ -119,6 +121,7 @@ public class Gym {
 	
 	
 	
+
 	
 	
 }

@@ -63,6 +63,8 @@ public class JwtTokenUtil implements Serializable {
         String encodedNickname = new String(userDetails.getNickname().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
         claims.put("email", userDetails.getUsername());
         claims.put("userId",userDetails.getUserId());
+        claims.put("cash",userDetails.getCash());
+        claims.put("totalcash",userDetails.getTotalcash());
         claims.put("nickname", encodedNickname);
         claims.put("role", userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -73,10 +75,6 @@ public class JwtTokenUtil implements Serializable {
     }
 
     //while creating the token - (토큰에 정보를 넣고, 시크릿 키를 이용해서 토큰을 compact하게 만든다)
-    //1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
-    //2. Sign the JWT using the HS512 algorithm and secret key.
-    //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
-    //   compaction of the JWT to a URL-safe string
     private String doGenerateToken(Map<String, Object> claims,String email) {
     	System.out.println("Claims used for token generation: " + claims);
         return Jwts.builder().setClaims(claims).setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
