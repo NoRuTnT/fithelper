@@ -3,16 +3,17 @@
     <div class="container">
       <div id="map"></div>
       <div class="gym-list">
+        <h2>현재 선택한 매장 예약</h2>
       <ul>
-        <li>Detail</li>
-        <li>name</li>
-        <li>category</li>
-        <li>status</li>
-        <li>price</li>
-        <li>likeCount</li>
-        <li>description</li>
-        <li>regDate</li>
-        <li><button>reserve하기</button></li>
+        <li>name : {{gym.name}}</li>
+        <li>description : {{ gym.description }}</li>
+        <li>category : {{ gym.category }}</li>
+        <li>status : {{ gym.status }}</li>
+        <li>price : {{ gym.price }}</li>
+        <li>meetTime
+          <input type="datetime-local" v-model="gym.meetTime" />
+        </li>
+        <li><button @click="reserveGym">reserve하기</button></li>
         
       </ul>
     </div>
@@ -32,12 +33,6 @@
       <hr>
       <ul id="placesList"></ul>
       <div id="pagination"></div>
-
-
-
-
-      
-      
 
     </div>
     
@@ -221,6 +216,7 @@ function displayPlaces(places) {
         (function(marker, title) {
             kakao.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
+                /////////////////////////////
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -230,6 +226,8 @@ function displayPlaces(places) {
 
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
+                ///////////////////////
+                
             };
 
             itemEl.onmouseout =  function () {
@@ -247,6 +245,9 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
+    
+    // 검색된 내용 list에 eventListener 추가
+    updateGymList();
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
@@ -368,25 +369,50 @@ function removeAllChildNods(el) {
 }
 
 //////////////////////////////////////////////
-import { useUserReserve } from "@/stores/userReserve";
+import { useGymStore } from "@/stores/gym";
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
-const userReserveStore = useUserReserve();
+const gymStore = useGymStore();
 
-const userReserve = ref({
-  reserveId: '',
-  userId: '',
+// 선택된 매장에 대한 정보
+// 프론트에 나타난 list내용을 클릭하면 DB에 저장된다.
+const gym = ref({
   gymId: '',
+  userId: '',
+  name: '', 
+  category: '',
+  status: '',
+  price: '',
+  description: '',
   reserveTime: '',
-  meetingTime: '',
+  meetTime: ''
 })
 
 const reserveGym = function(){
   authStore.updateUserIdFromToken(); // 필수
-  userReserve.value.userId = authStore.userId;
-  userReserveStore.createUserReserve(userReserve.value);
+  gym.value.userId = authStore.userId; // 예약한 사람의 사용자 번호 입력
+  gymStore.createGym(gym.value); // 객체를 backend로 전달하는 함수 호출
+  alert('저장되었습니다.');
 }
+// 아래부터 db에 gym 관련 내용 추가하고 reserve하는 부분
+// 새로운 검색을 했을 때마다 아래 내용을 실행해야 됨
+function updateGymList(){
+  let gymList = document.getElementsByClassName('info');
+  console.log(gymList);
+  for(let i=0 ; i<gymList.length ; i++){
+    gymList[i].addEventListener('click', function(){
+      gym.value.name = gymList[i].children[0].innerText;
+      gym.value.description = gymList[i].children[1].innerText;
+      // data
+      gym.value.category = '전신';
+      gym.value.status = '영업중';
+      gym.value.price = 300000;
+    })
+  }
+
+}
+
 </script>
 
 <style scoped>

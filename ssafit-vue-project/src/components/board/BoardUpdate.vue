@@ -7,10 +7,9 @@
                 <label for="title">제목 : </label>
                 <input type="text" id="title" v-model="store.board.title">
             </div>
-            <div>
-                <label for="writer">쓰니 : </label>
-                <input type="text" id="writer" readonly v-model="store.board.userId">
-            </div>
+
+            <input type="hidden" id="writer" readonly v-model="store.board.userId">
+
             <div>
                 <label for="content">내용 : </label>
                 <textarea id="content" cols="30" rows="10" v-model="store.board.content"></textarea>

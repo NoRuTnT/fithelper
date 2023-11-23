@@ -37,6 +37,7 @@ public class TrainerRestController {
 	
 	@PostMapping("signup")
 	public ResponseEntity<Trainer> signup(@RequestBody Trainer trainer) {
+		System.out.println(trainer);
 	    trainerService.signup(trainer);
 	    trainer.setPassword(null); // 민감한 정보 숨기기
 	    return new ResponseEntity<>(trainer, HttpStatus.CREATED);

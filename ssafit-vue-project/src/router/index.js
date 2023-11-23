@@ -18,6 +18,7 @@ import CommentList from '@/components/Comment/CommentList.vue'
 import SelectUserType from '@/components/User/SelectUserType.vue'
 import RegistUser from '@/components/User/RegistUser.vue'
 import RegistTrainer from '@/components/User/RegistTrainer.vue'
+import RegistGymowner from '@/components/User/RegistGymowner.vue'
 
 // 마이페이지 항목 컴포넌트
 import ClassList from '@/components/myPage/Class.vue' 
@@ -121,6 +122,11 @@ const router = createRouter({
           path: "trainer",
           name: "registTrainer",
           component: RegistTrainer
+        },
+        {
+          path: "gymowner",
+          name: "registGymowner",
+          component: RegistGymowner
         },
       ]
     },

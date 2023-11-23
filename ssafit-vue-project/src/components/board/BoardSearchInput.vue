@@ -17,7 +17,7 @@
             <select v-model="searchInfo.orderBy">
                 <option value='none'>없음</option>
                 <option value="title">제목</option>
-                <option value="view_cnt">조회수</option>
+                <option value="viewCnt">조회수</option>
             </select>
         </div>
         <div>

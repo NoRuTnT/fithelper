@@ -49,14 +49,14 @@
 	
 	<update id="updateLikeCntUp" parameterType="int">
 		UPDATE Board
-		SET viewCnt = viewCnt+1
+		SET likeCount = likeCount+1
 		WHERE boardId = #{boardId}
 	</update>
 	
 	
 	<update id="updateLikeCntDown" parameterType="int">
 		UPDATE Board
-		SET viewCnt = viewCnt-1
+		SET likeCount = likeCount-1
 		WHERE boardId = #{boardId}
 	</update>
 

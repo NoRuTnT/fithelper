@@ -1,6 +1,6 @@
 <template>
     <div class="regist-box">
-        <h2>트레이너 회원</h2>
+        <h2>Gym 회원</h2>
         <h2>SSAFIT</h2>
         <div>
             <ul>
@@ -9,8 +9,8 @@
                 <li><input type="password" placeholder="비밀번호" v-model="trainer.password"></li>
                 <li><input type="text" placeholder="닉네임" v-model="trainer.nickname"></li>
                 <li><input type="text" placeholder="생일" v-model="trainer.birth"></li>                
-                <li><input type="text" placeholder="핸드폰번호" v-model="trainer.phonenum"></li>
-                <li><input type="text" placeholder="주소" v-model="trainer.address"></li>
+                <li><input type="text" placeholder="핸드폰번호(선택)" v-model="trainer.phonenum"></li>
+                <li><input type="text" placeholder="주소(선택)" v-model="trainer.address"></li>
                 <p>성별(선택)</p>
                 <li>
                     <label for="male">남성</label>
@@ -31,9 +31,9 @@
 
 
 import { ref } from "vue";
-import { useTrainerStore } from "@/stores/trainer";
+import { useGymownerStore } from "@/stores/gymowner";
 
-const store = useTrainerStore();
+const store = useGymownerStore();
 const trainer = ref({
     trainerId: '',
     email: '',
@@ -44,13 +44,14 @@ const trainer = ref({
     phonenum: '',
     address: '',
     cash: '',
-    sex: ''
+    sex: '',
+    role: 'trainer'
     // sex: gender.value,
 })
 
 const createtrainer = function () {
     console.log(trainer);
-    store.createTrainer(trainer.value)
+    store.createtrainer(trainer.value)
 }
 </script>
 

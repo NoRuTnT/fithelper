@@ -11,8 +11,8 @@
 	</select>
 
 	<insert id="insertTrainer" parameterType="Trainer" useGeneratedKeys="true" keyProperty="trainerId">
-		insert into trainer (id, name,password, nickname, birth, email, phonenum,address,cash,sex)
-		values (#{id},#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
+		insert into trainer (name,password, nickname, birth, email, phonenum,address,cash,sex)
+		values (#{name},#{password}, #{nickname}, #{birth}, #{email}, #{phonenum},#{address},#{cash},#{sex})
 	</insert>
 	
 	<delete id="deleteTrainer" parameterType="int">

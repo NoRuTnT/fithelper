@@ -50,8 +50,15 @@ public class SecurityConfiguration {
             .cors().and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/", "/**", "/api-user/login", "/api-user/signup").permitAll()
-            .antMatchers("/api/board/**").hasRole("user")
+            // 가장 구체적인 경로를 먼저
+            .antMatchers("/api-user/login", "/api-user/signup").permitAll()
+            .antMatchers("/api-trainer/login", "/api-trainer/signup").permitAll()
+            .antMatchers("/api-gymowner/login", "/api-gymowner/signup").permitAll()
+            // 다음으로 특정 역할 또는 권한에 대한 접근 제한
+            .antMatchers("/api/board/**").hasAuthority("user")
+            // 그리고 가장 일반적인 경로
+            .antMatchers("/").permitAll()
+            .antMatchers("/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

@@ -27,15 +27,16 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-
 		registry.addInterceptor(jwtInterceptor)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/api-user/login", "/swagger-resources/**","/swagger-ui/**","/v2/api-docs");
+		.excludePathPatterns("/api-user/login","/api-trainer/signup","/api-trainer/login", "/swagger-resources/**","/swagger-ui/**","/v2/api-docs");
 	}
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*");
+//		registry.addMapping("/**").allowedOrigins("*");
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "PUT");
+		
 	}
 	
 	

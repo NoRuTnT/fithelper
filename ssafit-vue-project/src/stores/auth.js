@@ -3,9 +3,6 @@ const b64_to_utf8 = function ( str ) {
   return decodeURIComponent(escape(window.atob( str )));
 }
 
-const b64_to_utf8 = function ( str ) {
-  return decodeURIComponent(escape(window.atob( str )));
-}
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: sessionStorage.getItem('access-token') || null,

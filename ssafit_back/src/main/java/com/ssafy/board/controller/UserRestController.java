@@ -1,6 +1,5 @@
 package com.ssafy.board.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.board.model.dto.Comment;
 import com.ssafy.board.model.dto.User;
 import com.ssafy.board.model.dto.UserDTO;
 import com.ssafy.board.model.service.UserService;
 import com.ssafy.board.security.JwtTokenUtil;
 
 import io.swagger.annotations.Api;
-import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api-user")
@@ -53,6 +49,7 @@ public class UserRestController {
 	
 	@PostMapping("signup")
 	public ResponseEntity<User> signup(@RequestBody User user) {
+		System.out.println(user);
 	    userService.signup(user);
 	    user.setPassword(null); // 민감한 정보 숨기기
 	    return new ResponseEntity<>(user, HttpStatus.CREATED);

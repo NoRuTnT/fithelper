@@ -82,5 +82,11 @@ public class BoardRestController {
 		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	//7. 다른기능으로 좋아요 기능 구현
+	@PutMapping("/board/likeCntUp/{id}") 
+	public ResponseEntity<Void> likeCntUp(@PathVariable int id){
+		boardService.updateLikeCntUp(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 	
 }

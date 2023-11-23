@@ -5,7 +5,8 @@
     <div>
         <h3>사용자 유형 선택</h3>
         <RouterLink to="/registUser/normal">일반회원</RouterLink>
-        <!-- <RouterLink to="/registUser/trainer">트레이너회원</RouterLink> -->
+        <RouterLink to="/registUser/trainer">트레이너회원</RouterLink>
+        <RouterLink to="/registUser/gymowner">Gym회원</RouterLink>
     </div>
 </template>
 

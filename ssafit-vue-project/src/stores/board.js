@@ -30,6 +30,7 @@ export const useBoardStore = defineStore('board', () => {
         console.log(err)
       })
   }
+  // board 번호가 input 파라미터로 들어옴
   const deleteBoard = function (id) {
     http.delete(`/api/board/${id}`)
     .then(() => {
@@ -53,6 +54,14 @@ export const useBoardStore = defineStore('board', () => {
         boardList.value = res.data
       })
   }
+  
+  const likeCountUp = function(id){
+    console.log(id);
+    http.put(`/api/board/likeCntUp/${id}`)
+      .then(() => {
+        router.push({ path: `/board/detail/${id}`})
+      })
+  }
 
-  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard, searchBoardList, deleteBoard }
+  return { boardList, getBoardList, board, getBoard, createBoard, updateBoard, searchBoardList, deleteBoard, likeCountUp }
 })

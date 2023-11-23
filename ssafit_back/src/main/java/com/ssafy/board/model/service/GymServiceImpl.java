@@ -13,60 +13,32 @@ import com.ssafy.board.model.dto.SearchCondition;
 
 @Service
 public class GymServiceImpl implements GymService {
-
-	private GymDao gymDao;
-	
 	@Autowired
-	public void setGymDao(GymDao gymDao) {
-		this.gymDao = gymDao;
-	}
-	
-	
-	@Override
-	public List<Gym> getList() {
-		return gymDao.selectAll();
-	}
+	private GymDao gymDao;
 
-	@Transactional
 	@Override
 	public void writeGym(Gym gym) {
 		gymDao.insertGym(gym);
 	}
 
 	@Override
-	public Gym getGym(int id) {
-		gymDao.updateViewCnt(id);
-		return gymDao.selectOne(id);
+	public List<Gym> getList(int userId) {
+		return gymDao.selectGymList(userId);
 	}
 
-	@Transactional
+	@Override
+	public Gym getGym(int gymId) {
+		return gymDao.selectOne(gymId);
+	}
+
 	@Override
 	public void modifyGym(Gym gym) {
 		gymDao.updateGym(gym);
 	}
 
-	@Transactional
 	@Override
-	public void removeGym(int id) {
-		gymDao.deleteGym(id);
-	}
-
-
-	@Override
-	public List<Gym> search(SearchCondition condition) {
-		return gymDao.search(condition);
-	}
-
-
-	@Override
-	public void updateLikeCntUp(int gymId) {
-		gymDao.updateLikeCntUp(gymId);
-	}
-
-
-	@Override
-	public void updateLikeCntDown(int gymId) {
-		gymDao.updateLikeCntDown(gymId);
+	public void removeGym(int gymId) {
+		gymDao.deleteGym(gymId);
 	}
 
 }

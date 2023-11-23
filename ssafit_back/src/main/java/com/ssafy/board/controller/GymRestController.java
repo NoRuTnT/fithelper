@@ -31,29 +31,28 @@ public class GymRestController {
 	@Autowired
 	private GymService gymService;
 
-	//1. 목록
-	@GetMapping("/gym")
-	@ApiOperation(value="장소 조회")
-	public ResponseEntity<?> list(SearchCondition condition){
-		List<Gym> list = gymService.search(condition); 
+	//1. 목록보기
+	@GetMapping("/gym/list/{userId}")
+	@ApiOperation(value="목록 조회")
+	public ResponseEntity<?> list(@PathVariable int userId){
+		List<Gym> list = gymService.getList(userId);
 		if(list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Gym>>(list, HttpStatus.OK);
 	}
 	
 	//2. 상세보기
-	@GetMapping("/gym/{id}")
-	public ResponseEntity<Gym> detail(@PathVariable int id){
-		Gym gym = gymService.getGym(id);
+	@GetMapping("/gym/{gymId}")
+	public ResponseEntity<Gym> detail(@PathVariable int gymId){
+		Gym gym = gymService.getGym(gymId);
 		return new ResponseEntity<Gym>(gym, HttpStatus.OK);
 	}
 	
 	//3. 등록
 	@PostMapping("/gym")
-	public ResponseEntity<Gym> write(@RequestBody Gym gym){
-		
+	public ResponseEntity<Void> write(@RequestBody Gym gym){
 		gymService.writeGym(gym);
-		return new ResponseEntity<Gym>(gym, HttpStatus.CREATED);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	//4. 삭제
@@ -67,19 +66,6 @@ public class GymRestController {
 	@PutMapping("/gym") 
 	public ResponseEntity<Void> update(@RequestBody Gym gym){
 		gymService.modifyGym(gym);
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
-	//6. 좋아요 증가/감소
-	@PutMapping("/gym/{id}/{type}") 
-	public ResponseEntity<Void> updateLikeCnt(@PathVariable int id, @PathVariable int type){
-		// url 변수 값이 1이면 증가
-		if(type==1) {
-			gymService.updateLikeCntUp(id);
-		}else { 
-			gymService.updateLikeCntDown(id);// 0이면 감소
-		}
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
