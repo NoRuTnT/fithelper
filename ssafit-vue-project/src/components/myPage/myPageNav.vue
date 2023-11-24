@@ -8,7 +8,7 @@
                 <li><RouterLink to="/myPage">메인</RouterLink></li>
                 <li><RouterLink to="/myPage/class">클래스</RouterLink></li>
                 <li><RouterLink to="/myPage/chatroom">1대1채팅</RouterLink></li>
-                <li><RouterLink to="/">정보수정</RouterLink></li>
+                <li><RouterLink to="/myPage/delete">회원탈퇴</RouterLink></li>
             </ul>
         </nav>
     </div>

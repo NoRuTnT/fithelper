@@ -79,6 +79,19 @@ export const useUserStore = defineStore('user', () => {
       user.value = response.value;
     })
   }
-  
-  return { createUser, loginUser, user, getUser,charge,use};
+  // 회원탈퇴
+  const deleteUser = function(userId){
+    http.delete(`/api-user/delete/${userId}`)
+    .then(()=>{
+      router.push({ name: 'home' });
+    })
+  }
+  // 회원정보수정
+  const updateUser = function () {
+    http.put('/api-user/update', user.value)
+      .then(() => {
+        router.push({ name: 'myPage' })
+      })
+  }
+  return { createUser, loginUser, user, getUser,charge,use, deleteUser, updateUser};
 });

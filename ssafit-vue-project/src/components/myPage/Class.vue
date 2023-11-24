@@ -5,7 +5,7 @@
             <span class="title">참여중인 수업</span>
             <div class="description" v-for="classItem in store.classList" :key="classItem.classId  ">                
               <div class="class-card">
-                    <h3>{{classItem.name}}</h3>
+                    <h3>213{{classItem.name}}</h3>
                     <p>{{ classItem.category }}</p>                    
                 </div>  
 
@@ -27,6 +27,7 @@ const store = useClassStore();
 
 authStore.updateUserIdFromToken();
 onMounted(() => {    
+  // authStore.updateUserIdFromToken();
   store.usergetClassList(authStore.userId)
   console.log(store.value.classList);
 })

@@ -25,7 +25,8 @@ import ClassList from '@/components/myPage/Class.vue'
 import Chatroom from '@/components/myPage/Chatroom.vue'
 import Main from '@/components/myPage/Main.vue'
 import Charge from '@/components/myPage/Charge.vue'
-
+import Update from '@/components/myPage/Update.vue'
+import Delete from '@/components/myPage/Delete.vue'
 
 import KakaoMap from '@/components/kakao/KakaoMap.vue'
 
@@ -62,6 +63,17 @@ const router = createRouter({
           name: "chatroom",
           component: Chatroom
         },
+        {
+          path: "update",
+          name: "update",
+          component: Update
+        },
+        {
+          path: "delete",
+          name: "delete",
+          component: Delete
+        },
+
       ]
     },
     { // 게시판

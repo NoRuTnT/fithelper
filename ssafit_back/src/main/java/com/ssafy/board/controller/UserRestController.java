@@ -65,7 +65,7 @@ public class UserRestController {
         return userService.isEmailUnique(id, email)? "OK" : "Duplicated";
     }
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("delete/{userId}")
 	public ResponseEntity<Void> delete(@PathVariable int userId){
 		userService.removeUser(userId);
 		

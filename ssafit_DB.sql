@@ -15,16 +15,7 @@ DROP SCHEMA IF EXISTS `ssafit` ;
 CREATE SCHEMA IF NOT EXISTS `ssafit` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `ssafit` ;
 
--- -----------------------------------------------------
--- Table `ssafit`.`level`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ssafit`.`level` ;
 
-CREATE TABLE IF NOT EXISTS `ssafit`.`level` (
-  `levelId` INT NOT NULL AUTO_INCREMENT,
-  `levelname` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`levelId`))
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -34,7 +25,6 @@ DROP TABLE IF EXISTS `ssafit`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
   `userId` INT NOT NULL AUTO_INCREMENT,
-  `levelId` INT NULL DEFAULT 1,
   `name` VARCHAR(10) NOT NULL,
   `email` VARCHAR(40) NOT NULL,
   `password` VARCHAR(200) NOT NULL,
@@ -43,15 +33,10 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`user` (
   `phonenum` CHAR(13) NULL DEFAULT NULL,
   `address` VARCHAR(45) NULL DEFAULT NULL,
   `cash` INT NULL DEFAULT 0,
+  `totalcash` INT NULL DEFAULT 0,
   `sex` CHAR(1) NOT NULL,
   `role` VARCHAR(40) NOT NULL DEFAULT 'user',
-  PRIMARY KEY (`userId`),
-  INDEX `fk_user_level1_idx` (`levelId` ASC) VISIBLE,
-  CONSTRAINT `fk_user_level1`
-    FOREIGN KEY (`levelId`)
-    REFERENCES `ssafit`.`level` (`levelId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`userId`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
@@ -76,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`board` (
   CONSTRAINT `fk_board_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -175,13 +160,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`class` (
   CONSTRAINT `fk_class_trainer2`
     FOREIGN KEY (`trainer_trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_class_category1`
     FOREIGN KEY (`category`)
     REFERENCES `ssafit`.`category` (`category`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -200,13 +185,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`participate` (
   CONSTRAINT `fk_participate_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_participate_class1`
     FOREIGN KEY (`classId`)
     REFERENCES `ssafit`.`class` (`classId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -226,8 +211,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`class_info` (
   CONSTRAINT `fk_class_info_class1`
     FOREIGN KEY (`classId`)
     REFERENCES `ssafit`.`class` (`classId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -255,21 +240,15 @@ DROP TABLE IF EXISTS `ssafit`.`gym` ;
 
 CREATE TABLE IF NOT EXISTS `ssafit`.`gym` (
   `gymId` INT NOT NULL AUTO_INCREMENT,
-  `gymownerId` INT NOT NULL,
+  `userId` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   `price` INT NOT NULL,
-  `like` INT NOT NULL,
   `description` VARCHAR(1000) NOT NULL,
-  `regDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`gymId`),
-  INDEX `fk_gym_gymowner1_idx` (`gymownerId` ASC) VISIBLE,
-  CONSTRAINT `fk_gym_gymowner1`
-    FOREIGN KEY (`gymownerId`)
-    REFERENCES `ssafit`.`gymowner` (`gymownerId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `reserveTime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `meetTime` timestamp,
+  PRIMARY KEY (`gymId`) )
 ENGINE = InnoDB;
 
 
@@ -288,13 +267,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`trainer_reserve` (
   CONSTRAINT `fk_reserve_trainer1`
     FOREIGN KEY (`trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_reserve_gym1`
     FOREIGN KEY (`gymId`)
     REFERENCES `ssafit`.`gym` (`gymId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -313,8 +292,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`follow` (
   CONSTRAINT `fk_follow_user1`
     FOREIGN KEY (`follower`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_follow_user2`
     FOREIGN KEY (`following`)
     REFERENCES `ssafit`.`user` (`userId`)
@@ -338,8 +317,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`board_like` (
   CONSTRAINT `fk_comment_like_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_comment_like_board1`
     FOREIGN KEY (`boardId`)
     REFERENCES `ssafit`.`board` (`boardId`)
@@ -363,13 +342,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`gym_like` (
   CONSTRAINT `fk_gym_like_gym1`
     FOREIGN KEY (`gymId`)
     REFERENCES `ssafit`.`gym` (`gymId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_gym_like_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -390,8 +369,8 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`user_reserve` (
   CONSTRAINT `fk_user_reserve_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_reserve_gym1`
     FOREIGN KEY (`gymId`)
     REFERENCES `ssafit`.`gym` (`gymId`)
@@ -418,13 +397,13 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`chatroom` (
   CONSTRAINT `fk_chatmsg_trainer1`
     FOREIGN KEY (`trainerId`)
     REFERENCES `ssafit`.`trainer` (`trainerId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_chatmsg_user1`
     FOREIGN KEY (`userId`)
     REFERENCES `ssafit`.`user` (`userId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -447,6 +426,15 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-
+-- ----------
 USE ssafit;
-SELECT * FROM comment;
+SELECT * FROM user;
+SELECT * FROM class;
+SELECT * FROM trainer;
+-- -----------
+INSERT INTO trainer (name, email, password, nickname, birth, phonenum, address, sex)
+VALUES ('트레이너', 'trainer@ssafy.com', 'ssafy', 'trainer', '901111', '010-3434-3434', '서울시 강남구 역삼동', 1);
+INSERT INTO category VALUES ('전신'), ('상체'), ('하체');
+INSERT INTO class (trainer_trainerId, category) VALUES (1, '전신');
+INSERT INTO class (trainer_trainerId, category) VALUES (1, '상체');
+SELECT * FROM class;

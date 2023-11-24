@@ -28,7 +28,7 @@ import { useBoardStore } from "@/stores/board";
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
-const store = useBoardStore()
+const store = useBoardStore();
 const board = ref({
     userId: '',
     title: '',

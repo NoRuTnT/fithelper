@@ -74,7 +74,6 @@ const updateBoard = function () {
         alert('자신이 작성한 게시글만 수정할 수 있습니다.')
     }
     
-    
 }
 const likeCntUp = function(){
     store.likeCountUp(store.board.boardId);
