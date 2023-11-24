@@ -57,4 +57,68 @@ const createUser = function () {
 li{
     list-style: none;
 }
+li{
+    list-style: none;
+}
+.regist-box {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.regist-box h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.regist-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.regist-box li {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="radio"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* 입력 필드의 패딩을 너비에 포함 */
+}
+
+input[type="radio"] {
+    width: auto; /* 라디오 버튼의 경우 너비를 자동으로 설정 */
+}
+
+label {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #5f5f5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3b3b3b;
+}
+
+p {
+    margin: 10px 0;
+}
 </style>

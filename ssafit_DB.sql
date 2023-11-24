@@ -427,6 +427,7 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- ----------
+-- 아래부터 디버그와 더미데이터 생성 구문
 USE ssafit;
 SELECT * FROM user;
 SELECT * FROM class;

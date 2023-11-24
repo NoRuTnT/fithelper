@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3>SSAFIT 자유게시판</h3>
         <h4>게시글 목록</h4>
         <hr>
         <table>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>SSAFIT 자유게시판</h3>
+        
         <RouterView/>
         
     </div>
@@ -22,9 +22,5 @@ const writeBoard = function(){
 button{
     margin: 10px;
 }
-h3{
-    color: mediumorchid;
-    font-size: 30px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
+
 </style>

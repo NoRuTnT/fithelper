@@ -121,4 +121,7 @@ emit('hideNav');
 .table-container table {
     width: auto; /* 테이블의 실제 크기에 맞춤 */
 }
+a{
+  text-decoration: none;
+}
 </style>

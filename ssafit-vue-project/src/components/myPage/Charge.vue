@@ -51,4 +51,51 @@ const finalcharge = function () {
  justify-content: space-between;
  margin-bottom: 1rem;
 }
+
+
+.card-body {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+}
+
+.title {
+    display: block;
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button.btn-finalcharge {
+    width: 80%;
+    padding: 10px 0;
+    background-color: rgb(230, 249, 137);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.btn-finalcharge:hover {
+    background-color: rgb(252, 252, 226);
+}
+
 </style>

@@ -256,7 +256,7 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+                '<div class="info" style="border:2px solid gray; margin: 5px; border-radius: 8px;" >' +
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
@@ -308,7 +308,6 @@ function displayPagination(pagination) {
     var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
         i; 
-
     // 기존에 추가된 페이지번호를 삭제합니다
     while (paginationEl.hasChildNodes()) {
         paginationEl.removeChild (paginationEl.lastChild);
@@ -318,7 +317,7 @@ function displayPagination(pagination) {
         var el = document.createElement('a');
         el.href = "#";
         el.innerHTML = i;
-
+        el.style.cssText  = 'margin: 10px; text-decoration: none';
         if (i===pagination.current) {
             el.className = 'on';
         } else {
@@ -502,4 +501,6 @@ button:hover {
 #pagination a:hover {
     background-color: #e9e9e9; /* 마우스 오버 시 배경색 변경 */
 }
+
+
 </style>
