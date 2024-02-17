@@ -11,8 +11,7 @@
 ![9](https://github.com/NoRuTnT/fithelper/assets/114069644/09a1add5-66b1-4be5-9fbf-c8762d4c203d)
 ![10](https://github.com/NoRuTnT/fithelper/assets/114069644/585ece3e-35b4-419a-b81f-7b4b839f1a2e)
 ![11](https://github.com/NoRuTnT/fithelper/assets/114069644/caec1c15-d3dd-4608-b144-bb27f58013b5)
-![12](https://github.com/NoRuTnT/fithelper/assets/114069644/b163b651-a5d0-49fd-9a03-60d9a82b074d)
-![13](https://github.com/NoRuTnT/fithelper/assets/114069644/2d380bf9-3d81-4dbd-beee-c6218504e75e)
+
 ![14](https://github.com/NoRuTnT/fithelper/assets/114069644/5e79167d-c5f5-440c-b6ff-d07b1484f33a)
 ![15](https://github.com/NoRuTnT/fithelper/assets/114069644/320c12ac-d5b2-4557-9648-88fc208059c6)
 ![16](https://github.com/NoRuTnT/fithelper/assets/114069644/33967c69-ea1d-4efb-a713-4e6ea420e600)
